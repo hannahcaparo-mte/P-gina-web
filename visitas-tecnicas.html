@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitas Técnicas - CETLOG en Acción</title>
+    <meta name="description" content="Conoce las visitas técnicas de CETLOG a terminales portuarios, depósitos temporales y centros de distribución en Perú.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE MARCA Y CONFIGURACIÓN BASE --- */
+        :root {
+            --azul-corporativo: #00174D;  
+            --naranja-corporativo: #F17900; 
+            --gris-secundario: #E6E6E6;     
+            --blanco: #FFFFFF;
+            --texto-oscuro: #1A202C;
+            --fondo-ligero: #F9FAFB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--fondo-ligero);
+            color: var(--texto-oscuro);
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn-principal {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-principal:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(241, 121, 0, 0.3);
+        }
+
+        .titulo-seccion-texto {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitulo-seccion-linea {
+            width: 80px;
+            height: 4px;
+            background-color: var(--naranja-corporativo);
+            margin: 0 auto 40px auto;
+        }
+
+        /* --- HEADER Y MENÚ INTERACTIVO CON DROPDOWN --- */
+        header {
+            background-color: var(--blanco);
+            border-bottom: 2px solid var(--gris-secundario);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .imagotipo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .isotipo-cubo {
+            width: 35px;
+            height: 35px;
+            background-color: var(--blanco);
+            border: 3px solid var(--azul-corporativo);
+            position: relative;
+            box-shadow: -6px 6px 0px var(--naranja-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .isotipo-cubo::after {
+            content: "c";
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            font-size: 1.2rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .logotipo-texto {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--azul-corporativo);
+            letter-spacing: -1px;
+            text-transform: lowercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--azul-corporativo);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--naranja-corporativo);
+        }
+
+        /* DROPDOWN AL PASAR EL MOUSE EN "CETLOG EN ACCIÓN" */
+        .item-dropdown {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .menu-desplegable {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background-color: var(--blanco);
+            border: 1px solid var(--gris-secundario);
+            border-top: 3px solid var(--naranja-corporativo);
+            width: 240px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .menu-desplegable li a {
+            padding: 12px 20px;
+            font-size: 0.8rem;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            width: 100%;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .menu-desplegable li a:hover {
+            background-color: var(--fondo-ligero);
+            color: var(--naranja-corporativo);
+            padding-left: 25px;
+        }
+
+        .item-dropdown:hover .menu-desplegable {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ==========================================================================
+           1. BANNER CON FOTO DE FONDO
+           ========================================================================== */
+        .banner-visitas {
+            position: relative;
+            height: 450px;
+            background: linear-gradient(rgba(0, 23, 77, 0.85), rgba(0, 12, 41, 0.9)), 
+                        url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            color: var(--blanco);
+            text-align: center;
+        }
+
+        .contenido-banner-visitas {
+            width: 100%;
+        }
+
+        .tag-visitas {
+            display: inline-block;
+            background-color: var(--naranja-corporativo);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        .banner-visitas h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .banner-visitas p {
+            font-size: 1.15rem;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--gris-secundario);
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           2. SISTEMA DE FILTROS Y CONTENEDOR DE VISITAS
+           ========================================================================== */
+        .seccion-galeria-visitas {
+            padding: 80px 0;
+        }
+
+        /* Botones de Filtrado */
+        .contenedor-filtros {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .btn-filtro {
+            background-color: var(--blanco);
+            color: var(--azul-corporativo);
+            border: 1px solid var(--gris-secundario);
+            padding: 12px 24px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .btn-filtro:hover, .btn-filtro.activo {
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            border-color: var(--azul-corporativo);
+            box-shadow: 0 4px 15px rgba(0, 23, 77, 0.15);
+        }
+
+        /* Grid de Tarjetas de Visitas */
+        .grid-visitas-logistica {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .tarjeta-visita {
+            background-color: var(--blanco);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--gris-secundario);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .tarjeta-visita:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        /* Contenedor Multimedia de la Tarjeta */
+        .multimedia-visita-box {
+            position: relative;
+            height: 230px;
+            background-color: #2d3748;
+            overflow: hidden;
+        }
+
+        .multimedia-visita-box img, .multimedia-visita-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Etiquetas encima de la foto */
+        .badge-categoria-visita {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .badge-fecha-visita {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        /* Icono de Reproducción para simular video */
+        .play-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blanco);
+            font-size: 3rem;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .play-video-overlay:hover {
+            background: rgba(0,0,0,0.4);
+            color: var(--naranja-corporativo);
+        }
+
+        /* Detalles Informativos de la Tarjeta */
+        .info-visita-box {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-visita-box h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .info-visita-box p {
+            font-size: 0.88rem;
+            color: #4A5568;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Ruta o Locación de la Visita */
+        .locacion-visita-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid var(--gris-secundario);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        .locacion-visita-footer i {
+            color: var(--naranja-corporativo);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0b1326;
+            color: rgba(255,255,255,0.5);
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 3px solid var(--naranja-corporativo);
+            margin-top: 40px;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN (MÓVIL Y TABLETAS)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .grid-visitas-logistica { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+            .banner-visitas h1 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 650px) {
+            .grid-visitas-logistica { grid-template-columns: 1fr; }
+            .banner-visitas h1 { font-size: 2rem; }
+            .btn-filtro { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor header-wrap">
+            <a href="index.html" class="imagotipo" style="text-decoration:none;">
+                <div class="isotipo-cubo"></div>
+                <div class="logotipo-texto">cetlog</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="programas.html">Programas</a></li>
+                    <li><a href="metodologia.html">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li class="item-dropdown">
+                        <a href="visitas-tecnicas.html" class="active">CETLOG en Acción <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i></a>
+                        <ul class="menu-desplegable">
+                            <li><a href="conexiones-laborales.html">Conexiones Laborales</a></li>
+                            <li><a href="visitas-tecnicas.html" class="active">Visitas Técnicas</a></li>
+                            <li><a href="eventos.html">Eventos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
+        </div>
+    </header>
+
+    <main>
+        
+        <section class="banner-visitas">
+            <div class="contenedor contenido-banner-visitas">
+                <span class="tag-visitas">Educación Vivencial en Campo</span>
+                <h1>Visitas Técnicas de Campo</h1>
+                <p>Conectamos las aulas con los nodos más importantes de la cadena de suministro internacional. Mira nuestros recorridos en tiempo real.</p>
+            </div>
+        </section>
+
+        <section class="seccion-galeria-visitas">
+            <div class="contenedor">
+                
+                <h2 class="titulo-seccion-texto">Bitácora de Salidas Técnicas</h2>
+                <div class="subtitulo-seccion-linea"></div>
+
+                <div class="contenedor-filtros">
+                    <button class="btn-filtro activo" onclick="filtrarVisitas('todos')">Todas las Visitas</button>
+                    <button class="btn-filtro" onclick="filtrarVisitas('ruta')">La Ruta del Contenedor</button>
+                    <button class="btn-filtro" onclick="filtrarVisitas('deposito')">Depósitos Temporales</button>
+                    <button class="btn-filtro" onclick="filtrarVisitas('cd')">Centros de Distribución</button>
+                </div>
+
+                <div class="grid-visitas-logistica">
+                    
+                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-visita" data-categoria="ruta">
+                        <div class="multimedia-visita-box">
+                            <span class="badge-categoria-visita">Ruta del Contenedor</span>
+                            <span class="badge-fecha-visita">14 May 2026</span>
+                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=500" alt="Ingreso al Puerto">
+                            <div class="play-video-overlay">
+                                <i class="fa-regular fa-circle-play"></i>
+                            </div>
+                        </div>
+                        <div class="info-visita-box">
+                            <h3>Operaciones en Terminal Portuario</h3>
+                            <p>Nuestros entrenados presenciaron la descarga física de buques portacontenedores, la gestión de grúas pórtico y los flujos logísticos de ingreso aduanero.</p>
+                            <div class="locacion-visita-footer">
+                                <i class="fa-solid fa-location-dot"></i> APM Terminals / DP World Callao
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-visita" data-categoria="deposito">
+                        <div class="multimedia-visita-box">
+                            <span class="badge-categoria-visita">Depósito Temporal</span>
+                            <span class="badge-fecha-visita">28 Abr 2026</span>
+                            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=500" alt="Depósito Aduanero">
+                        </div>
+                        <div class="info-visita-box">
+                            <h3>Aforos y Trámites Aduaneros</h3>
+                            <p>Revisión en campo de procesos de reconocimiento físico (aforo), desconsolidación de mercancías LCL y validación documental junto a especialistas aduaneros.</p>
+                            <div class="locacion-visita-footer">
+                                <i class="fa-solid fa-location-dot"></i> Depósito Temporal Callao
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-visita" data-categoria="cd">
+                        <div class="multimedia-visita-box">
+                            <span class="badge-categoria-visita">Centro de Distribución</span>
+                            <span class="badge-fecha-visita">11 Mar 2026</span>
+                            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=500" alt="Centro de Distribución">
+                        </div>
+                        <div class="info-visita-box">
+                            <h3>Sistemas WMS y Cross-Docking</h3>
+                            <p>Recorrido guiado por las zonas de picking automatizado, gestión de racks selectivos de alta densidad y la sincronización de despachos de última milla.</p>
+                            <div class="locacion-visita-footer">
+                                <i class="fa-solid fa-location-dot"></i> CD Logístico Lurín
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-visita" data-categoria="ruta">
+                        <div class="multimedia-visita-box">
+                            <span class="badge-categoria-visita">Ruta del Contenedor</span>
+                            <span class="badge-fecha-visita">18 Feb 2026</span>
+                            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=500" alt="Trazabilidad">
+                            <div class="play-video-overlay">
+                                <i class="fa-regular fa-circle-play"></i>
+                            </div>
+                        </div>
+                        <div class="info-visita-box">
+                            <h3>Trazabilidad de Carga Crítica</h3>
+                            <p>Análisis interactivo de la cadena de custodia desde la salida del puerto hasta el precintado e instalación de GPS para tránsito nacional seguro.</p>
+                            <div class="locacion-visita-footer">
+                                <i class="fa-solid fa-location-dot"></i> Corredor Logístico Callao - Lima
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-visita" data-categoria="cd">
+                        <div class="multimedia-visita-box">
+                            <span class="badge-categoria-visita">Centro de Distribución</span>
+                            <span class="badge-fecha-visita">22 Ene 2026</span>
+                            <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?q=80&w=500" alt="Operaciones de Almacén">
+                        </div>
+                        <div class="info-visita-box">
+                            <h3>Picking de Alta Velocidad y Slotting</h3>
+                            <p>Estudio visual sobre la categorización ABC de mercancías en almacenamiento masivo y auditorías de inventario cíclico en tiempo real.</p>
+                            <div class="locacion-visita-footer">
+                                <i class="fa-solid fa-location-dot"></i> Almacenes Huachipa
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="contenedor">
+            <p style="margin-bottom: 12px;">
+                <a href="index.html">Inicio</a> &nbsp;·&nbsp;
+                <a href="programas.html">Programas</a> &nbsp;·&nbsp;
+                <a href="visitas-tecnicas.html">Visitas Técnicas</a> &nbsp;·&nbsp;
+                <a href="eventos.html">Eventos</a> &nbsp;·&nbsp;
+                <a href="mailto:informes@cetlog.com.pe">informes@cetlog.com.pe</a>
+            </p>
+            <p>&copy; 2026 CETLOG - Centro de Entrenamiento Técnico en Logística. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function filtrarVisitas(categoria) {
+            // Actualizar estado activo de los botones
+            const botones = document.querySelectorAll('.btn-filtro');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            event.target.classList.add('activo');
+
+            // Filtrar las tarjetas
+            const tarjetas = document.querySelectorAll('.tarjeta-visita');
+            
+            tarjetas.forEach(tarjeta => {
+                if (categoria === 'todos') {
+                    tarjeta.style.display = 'flex';
+                } else {
+                    if (tarjeta.getAttribute('data-categoria') === categoria) {
+                        tarjeta.style.display = 'flex';
+                    } else {
+                        tarjeta.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Visita Técnica - CETLOG</title>
+    <meta name="description" content="Revive el recorrido, cronograma y registro visual de las visitas técnicas y eventos de CETLOG en el sector logístico.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE MARCA Y CONFIGURACIÓN BASE --- */
+        :root {
+            --azul-corporativo: #00174D;  
+            --naranja-corporativo: #F17900; 
+            --gris-secundario: #E6E6E6;     
+            --blanco: #FFFFFF;
+            --texto-oscuro: #1A202C;
+            --fondo-ligero: #F9FAFB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--fondo-ligero);
+            color: var(--texto-oscuro);
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn-principal {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-principal:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(241, 121, 0, 0.3);
+        }
+
+        /* --- HEADER Y MENÚ INTERACTIVO CON DROPDOWN --- */
+        header {
+            background-color: var(--blanco);
+            border-bottom: 2px solid var(--gris-secundario);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .imagotipo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .isotipo-cubo {
+            width: 35px;
+            height: 35px;
+            background-color: var(--blanco);
+            border: 3px solid var(--azul-corporativo);
+            position: relative;
+            box-shadow: -6px 6px 0px var(--naranja-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .isotipo-cubo::after {
+            content: "c";
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            font-size: 1.2rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .logotipo-texto {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--azul-corporativo);
+            letter-spacing: -1px;
+            text-transform: lowercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--azul-corporativo);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--naranja-corporativo);
+        }
+
+        .item-dropdown {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .menu-desplegable {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background-color: var(--blanco);
+            border: 1px solid var(--gris-secundario);
+            border-top: 3px solid var(--naranja-corporativo);
+            width: 240px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .menu-desplegable li a {
+            padding: 12px 20px;
+            font-size: 0.8rem;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            width: 100%;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .menu-desplegable li a:hover {
+            background-color: var(--fondo-ligero);
+            color: var(--naranja-corporativo);
+            padding-left: 25px;
+        }
+
+        .item-dropdown:hover .menu-desplegable {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ==========================================================================
+           1. BANNER MINI (MIGA DE PAN / VOLVER)
+           ========================================================================== */
+        .bread-back-bar {
+            background-color: var(--azul-corporativo);
+            padding: 15px 0;
+            color: var(--blanco);
+        }
+
+        .bread-back-bar a {
+            color: var(--blanco);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .bread-back-bar a:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        /* ==========================================================================
+           2. FICHA TÉCNICA E INTRODUCCIÓN DE LA VISITA
+           ========================================================================== */
+        .seccion-encabezado-visita {
+            padding: 50px 0 30px 0;
+            background-color: var(--blanco);
+            border-bottom: 1px solid var(--gris-secundario);
+        }
+
+        .grid-encabezado {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .tag-tipo-visita {
+            color: var(--naranja-corporativo);
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .grid-encabezado h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .descripcion-larga-visita {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #4A5568;
+        }
+
+        /* Tarjeta de Ficha de Datos Técnicos lateral */
+        .tarjeta-datos-tecnicos {
+            background-color: var(--fondo-ligero);
+            border: 1px solid var(--gris-secundario);
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 5px solid var(--azul-corporativo);
+        }
+
+        .tarjeta-datos-tecnicos h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gris-secundario);
+            padding-bottom: 10px;
+        }
+
+        .item-dato-tecnico {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .item-dato-tecnico i {
+            color: var(--naranja-corporativo);
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        .item-dato-tecnico .label-tecnico {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #718096;
+            display: block;
+        }
+
+        .item-dato-tecnico .valor-tecnico {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--texto-oscuro);
+        }
+
+        /* ==========================================================================
+           3. ORGANIZACIÓN VISUAL DE FOTOS Y VIDEOS (MAMPARA PRO)
+           ========================================================================== */
+        .seccion-galeria-media {
+            padding: 60px 0;
+        }
+
+        .sub-titulos {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Grid Asimétrico Moderno (Masonry / Bento Grid style) */
+        .bento-grid-multimedia {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 220px;
+            gap: 20px;
+        }
+
+        .item-media-bento {
+            position: relative;
+            background-color: #2D3748;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--gris-secundario);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .item-media-bento:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            z-index: 5;
+        }
+
+        /* Configuraciones de tamaño asimétrico para que se vea premium */
+        .item-grande-video {
+            grid-column: span 2;
+            grid-row: span 2; /* Toma el doble de alto y ancho */
+        }
+
+        .item-ancho-foto {
+            grid-column: span 2;
+        }
+
+        .item-media-bento img, .item-media-bento video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Capas sobre la galería */
+        .overlay-bento-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0, 23, 77, 0.7));
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .item-media-bento:hover .overlay-bento-media {
+            opacity: 1;
+        }
+
+        .texto-bento-media {
+            color: var(--blanco);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Badge indicador de video */
+        .badge-video-indicador {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(241, 121, 0, 0.4);
+            z-index: 3;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .item-media-bento:hover .badge-video-indicador {
+            background-color: var(--azul-corporativo);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* ==========================================================================
+           4. LÍNEA DE TIEMPO / CRONOGRAMA DEL RECORRIDO EN CAMPO
+           ========================================================================== */
+        .seccion-timeline-recorrido {
+            padding: 40px 0 80px 0;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-left: 30px;
+            border-left: 3px solid var(--azul-corporativo);
+        }
+
+        .timeline-nodo {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-nodo::before {
+            content: "";
+            position: absolute;
+            left: -41px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--naranja-corporativo);
+            border: 4px solid var(--blanco);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px var(--azul-corporativo);
+        }
+
+        .timeline-nodo .hora {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--naranja-corporativo);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .timeline-nodo h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            margin-bottom: 8px;
+        }
+
+        .timeline-nodo p {
+            font-size: 0.9rem;
+            color: #4A5568;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           5. BANNER CTA PRECIADO E INVITACIÓN CON FORMULARIO INTEGRADO
+           ========================================================================== */
+        .seccion-cta-invitacion {
+            background: linear-gradient(135deg, #00113a 0%, #082263 100%);
+            color: var(--blanco);
+            padding: 80px 0;
+            position: relative;
+            border-top: 5px solid var(--naranja-corporativo);
+        }
+
+        .grid-cta-registro {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .info-cta-texto h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .info-cta-texto h2 span {
+            color: var(--naranja-corporativo);
+        }
+
+        .info-cta-texto p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--gris-secundario);
+            margin-bottom: 30px;
+        }
+
+        .beneficio-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .beneficio-cta i {
+            color: var(--naranja-corporativo);
+            font-size: 1.1rem;
+        }
+
+        /* Caja de Formulario Inline Exclusiva */
+        .tarjeta-formulario-cta {
+            background-color: var(--blanco);
+            border-radius: 8px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .tarjeta-formulario-cta h3 {
+            color: var(--azul-corporativo);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .tarjeta-formulario-cta .sub-form {
+            font-size: 0.8rem;
+            color: #718096;
+            text-align: center;
+            display: block;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .campo-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .campo-cta label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+        }
+
+        .campo-cta input, .campo-cta select {
+            padding: 12px;
+            border: 1px solid var(--gris-secundario);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background-color: var(--fondo-ligero);
+        }
+
+        .campo-cta input:focus, .campo-cta select:focus {
+            outline: none;
+            border-color: var(--naranja-corporativo);
+            background-color: var(--blanco);
+        }
+
+        .btn-enviar-cta {
+            width: 100%;
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-enviar-cta:hover {
+            background-color: var(--azul-corporativo);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0b1326;
+            color: rgba(255,255,255,0.5);
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .grid-encabezado, .grid-cta-registro { grid-template-columns: 1fr; gap: 35px; }
+            .bento-grid-multimedia { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+            .item-grande-video { grid-column: span 2; grid-row: span 2; }
+        }
+
+        @media (max-width: 600px) {
+            .grid-encabezado h1 { font-size: 1.8rem; }
+            .bento-grid-multimedia { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+            .item-grande-video, .item-ancho-foto { grid-column: span 1; grid-row: span 1; }
+            .tarjeta-formulario-cta { padding: 25px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor header-wrap">
+            <a href="index.html" class="imagotipo" style="text-decoration:none;">
+                <div class="isotipo-cubo"></div>
+                <div class="logotipo-texto">cetlog</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="programas.html">Programas</a></li>
+                    <li><a href="metodologia.html">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li class="item-dropdown">
+                        <a href="visitas-tecnicas.html" class="active">CETLOG en Acción <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i></a>
+                        <ul class="menu-desplegable">
+                            <li><a href="conexiones-laborales.html">Conexiones Laborales</a></li>
+                            <li><a href="visitas-tecnicas.html" class="active">Visitas Técnicas</a></li>
+                            <li><a href="eventos.html">Eventos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
+        </div>
+    </header>
+
+    <div class="bread-back-bar">
+        <div class="contenedor">
+            <a href="visitas-tecnicas.html"><i class="fa-solid fa-arrow-left"></i> Volver a Bitácora de Visitas</a>
+        </div>
+    </div>
+
+    <main>
+        
+        <section class="seccion-encabezado-visita">
+            <div class="contenedor grid-encabezado">
+                <div>
+                    <span class="tag-tipo-visita">La Ruta del Contenedor</span>
+                    <h1>Operaciones en Terminal Portuario y Depósito Temporal</h1>
+                    <p class="descripcion-larga-visita">
+                        Una inmersión crítica y técnica en los nodos neurálgicos del comercio exterior. Nuestros estudiantes experimentaron de primera mano el flujo operativo integral desde el desanclaje de buques portacontenedores, la validación física en aduanas, hasta el traslado controlado hacia los almacenes aduaneros autorizados.
+                    </p>
+                </div>
+
+                <div class="tarjeta-datos-tecnicos">
+                    <h3>Ficha Técnica</h3>
+                    <div class="item-dato-tecnico">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <div>
+                            <span class="label-tecnico">Fecha de Ejecución</span>
+                            <span class="valor-tecnico">14 de Mayo, 2026</span>
+                        </div>
+                    </div>
+                    <div class="item-dato-tecnico">
+                        <i class="fa-solid fa-building-flag"></i>
+                        <div>
+                            <span class="label-tecnico">Aliados Estratégicos</span>
+                            <span class="valor-tecnico">APM Terminals / DP World</span>
+                        </div>
+                    </div>
+                    <div class="item-dato-tecnico">
+                        <i class="fa-solid fa-users"></i>
+                        <div>
+                            <span class="label-tecnico">Participantes</span>
+                            <span class="valor-tecnico">35 Entrenados Técnicos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-galeria-media">
+            <div class="contenedor">
+                <h3 class="sub-titulos"><i class="fa-solid fa-camera-retro" style="color:var(--naranja-corporativo);"></i> Registro Visual de la Jornada</h3>
+                
+                <div class="bento-grid-multimedia">
+                    
+                    <div class="item-media-bento item-grande-video">
+                        <div class="badge-video-indicador">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=800" alt="Video Resumen de la Ruta">
+                        <div class="overlay-bento-media">
+                            <span class="texto-bento-media">Video Masterclass: Operaciones en Muelle de Contenedores</span>
+                        </div>
+                    </div>
+
+                    <div class="item-media-bento">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=400" alt="Inspección Aduanera">
+                        <div class="overlay-bento-media">
+                            <span class="texto-bento-media">Revisión de Precinto de Seguridad</span>
+                        </div>
+                    </div>
+
+                    <div class="item-media-bento">
+                        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=400" alt="Ingreso al Depósito">
+                        <div class="overlay-bento-media">
+                            <span class="texto-bento-media">Desconsolidación de Mercancías LCL</span>
+                        </div>
+                    </div>
+
+                    <div class="item-media-bento item-ancho-foto">
+                        <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?q=80&w=600" alt="Feedback grupal">
+                        <div class="overlay-bento-media">
+                            <span class="texto-bento-media">Feedback Técnico dictado por Oficiales Aduaneros</span>
+                        </div>
+                    </div>
+
+                    <div class="item-media-bento">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b90473bd58?q=80&w=400" alt="Uso de EPPs">
+                        <div class="overlay-bento-media">
+                            <span class="texto-bento-media">Inducción de Seguridad en Campo Industrial</span>
+                        </div>
+                    </div>
+
+                    <div class="item-media-bento">
+                        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=400" alt="Grúas Pórtico">
+                        <div class="overlay-bento-media">
+                            <span class="texto-bento-media">Operación en Patio de Contenedores</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-timeline-recorrido">
+            <div class="contenedor">
+                <h3 class="sub-titulos"><i class="fa-solid fa-route" style="color:var(--naranja-corporativo);"></i> Cronograma del Aprendizaje</h3>
+                
+                <div class="timeline-container">
+                    <div class="timeline-nodo">
+                        <span class="hora">08:30 AM</span>
+                        <h4>Inducción de Seguridad y EPPs</h4>
+                        <p>Ingreso regulado a la zona portuaria con charla técnica obligatoria sobre prevención de riesgos y estándares de seguridad internacional.</p>
+                    </div>
+                    <div class="timeline-nodo">
+                        <span class="hora">10:45 AM</span>
+                        <h4>Maniobras de Descarga en Muelle</h4>
+                        <p>Análisis visual de los flujos de grúas STS (Ship-to-Shore) y coordinación de transporte interno hacia el patio de almacenamiento.</p>
+                    </div>
+                    <div class="timeline-nodo">
+                        <span class="hora">02:15 PM</span>
+                        <h4>Aforo Físico en Depósito Temporal</h4>
+                        <p>Simulacro presencial junto a un especialista aduanero para identificar la clasificación de la carga y los canales de control del despacho.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-cta-invitacion">
+            <div class="contenedor grid-cta-registro">
+                
+                <div class="info-cta-texto">
+                    <h2>¿Quieres vivir la logística <span>en el mundo real?</span></h2>
+                    <p>Las aulas de CETLOG no tienen límites de paredes. Todas nuestras especializaciones técnicas incluyen salidas de campo estratégicas a los nodos más influyentes del país.</p>
+                    
+                    <div class="beneficio-cta">
+                        <i class="fa-solid fa-angles-right"></i>
+                        <span>Aprende con Directores de Operaciones activos en el sector.</span>
+                    </div>
+                    <div class="beneficio-cta">
+                        <i class="fa-solid fa-angles-right"></i>
+                        <span>Acceso gratuito exclusivo para estudiantes matriculados.</span>
+                    </div>
+                    <div class="beneficio-cta">
+                        <i class="fa-solid fa-angles-right"></i>
+                        <span>Certificación válida por horas prácticas de campo.</span>
+                    </div>
+                </div>
+
+                <div class="tarjeta-formulario-cta">
+                    <h3>Quiero recibir más información</h3>
+                    <span class="sub-form">Entérate de las próximas fechas de visitas y vacantes libres</span>
+                    
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Solicitud enviada correctamente. Te contactaremos con el calendario de próximas visitas.'); this.reset();">
+                        <div class="campo-cta">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" placeholder="Ej. Carlos Mendoza" required>
+                        </div>
+                        <div class="campo-cta">
+                            <label for="correo">Correo Electrónico</label>
+                            <input type="email" id="correo" placeholder="carlos@ejemplo.com" required>
+                        </div>
+                        <div class="campo-cta">
+                            <label for="interes">Programa de tu interés</label>
+                            <select id="interes">
+                                <option value="aduanas">Gestión Aduanera & Comercio Exterior</option>
+                                <option value="almacenes">Gestión de Almacenes & CD</option>
+                                <option value="transporte">Gestión de Transporte & Distribución</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-enviar-cta">Solicitar Calendario de Visitas</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="contenedor">
+            <p style="margin-bottom: 12px;">
+                <a href="index.html">Inicio</a> &nbsp;·&nbsp;
+                <a href="programas.html">Programas</a> &nbsp;·&nbsp;
+                <a href="visitas-tecnicas.html">Visitas Técnicas</a> &nbsp;·&nbsp;
+                <a href="eventos.html">Eventos</a> &nbsp;·&nbsp;
+                <a href="mailto:informes@cetlog.com.pe">informes@cetlog.com.pe</a>
+            </p>
+            <p>&copy; 2026 CETLOG - Centro de Entrenamiento Técnico en Logística. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

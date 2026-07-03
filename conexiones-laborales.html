@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexiones Laborales - CETLOG en Acción</title>
+    <meta name="description" content="Programa de Conexiones Laborales de CETLOG: conectamos talento técnico en logística con empresas líderes del sector.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE MARCA Y CONFIGURACIÓN BASE --- */
+        :root {
+            --azul-corporativo: #00174D;  
+            --naranja-corporativo: #F17900; 
+            --gris-secundario: #E6E6E6;     
+            --blanco: #FFFFFF;
+            --texto-oscuro: #1A202C;
+            --fondo-ligero: #F9FAFB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco);
+            color: var(--texto-oscuro);
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn-principal {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-principal:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(241, 121, 0, 0.3);
+        }
+
+        .titulo-seccion-texto {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitulo-seccion-linea {
+            width: 80px;
+            height: 4px;
+            background-color: var(--naranja-corporativo);
+            margin: 0 auto 50px auto;
+        }
+
+        /* --- HEADER Y MENÚ INTERACTIVO CON DROPDOWN --- */
+        header {
+            background-color: var(--blanco);
+            border-bottom: 2px solid var(--gris-secundario);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .imagotipo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .isotipo-cubo {
+            width: 35px;
+            height: 35px;
+            background-color: var(--blanco);
+            border: 3px solid var(--azul-corporativo);
+            position: relative;
+            box-shadow: -6px 6px 0px var(--naranja-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .isotipo-cubo::after {
+            content: "c";
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            font-size: 1.2rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .logotipo-texto {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--azul-corporativo);
+            letter-spacing: -1px;
+            text-transform: lowercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--azul-corporativo);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--naranja-corporativo);
+        }
+
+        /* DROPDOWN AL PASAR EL MOUSE EN "CETLOG EN ACCIÓN" */
+        .item-dropdown {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .menu-desplegable {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background-color: var(--blanco);
+            border: 1px solid var(--gris-secundario);
+            border-top: 3px solid var(--naranja-corporativo);
+            width: 240px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .menu-desplegable li a {
+            padding: 12px 20px;
+            font-size: 0.8rem;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            width: 100%;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .menu-desplegable li a:hover {
+            background-color: var(--fondo-ligero);
+            color: var(--naranja-corporativo);
+            padding-left: 25px;
+        }
+
+        .item-dropdown:hover .menu-desplegable {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ==========================================================================
+           1. BANNER CON FOTO DE FONDO
+           ========================================================================== */
+        .banner-conexiones {
+            position: relative;
+            height: 450px;
+            background: linear-gradient(rgba(0, 23, 77, 0.85), rgba(0, 12, 41, 0.9)), 
+                        url('https://images.unsplash.com/photo-1521737711867-e3b90473bd58?q=80&w=1200') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            color: var(--blanco);
+            text-align: center;
+        }
+
+        .contenido-banner-conexiones {
+            width: 100%;
+        }
+
+        .tag-conexiones {
+            display: inline-block;
+            background-color: var(--naranja-corporativo);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        .banner-conexiones h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .banner-conexiones p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--gris-secundario);
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           2. SECCIÓN: CONOCE NUESTRO PROGRAMA (OPTIMIZADA)
+           ========================================================================== */
+        .programa-info-seccion {
+            padding: 90px 0;
+            background-color: var(--blanco);
+        }
+
+        .grid-programa-info {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .subtitulo-destacado-corp {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .parrafo-corporativo {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #4A5568;
+            margin-bottom: 20px;
+        }
+
+        /* Sectores aliados */
+        .sectores-alianza-box {
+            background-color: var(--fondo-ligero);
+            border: 1px solid var(--gris-secundario);
+            border-radius: 6px;
+            padding: 30px;
+        }
+
+        .sectores-alianza-box h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .grid-sectores-iconos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .sector-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--blanco);
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid var(--naranja-corporativo);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .sector-item i {
+            font-size: 1.2rem;
+            color: var(--azul-corporativo);
+        }
+
+        .sector-item span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--texto-oscuro);
+        }
+
+        /* Bloque: Historias reales, resultados reales */
+        .compromiso-seccion {
+            padding: 80px 0;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+        }
+
+        .compromiso-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .compromiso-wrap h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--naranja-corporativo);
+            margin-bottom: 15px;
+        }
+
+        .compromiso-wrap .sub {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .caja-cero-costo {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px dashed rgba(255,255,255,0.3);
+            padding: 30px;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--gris-secundario);
+        }
+
+        /* ==========================================================================
+           3. FORMULARIO DE POSTULACIÓN / CONTACTO EMPRESA
+           ========================================================================== */
+        .formulario-conexiones-seccion {
+            padding: 90px 0;
+            background-color: var(--fondo-ligero);
+        }
+
+        .grid-formulario-split {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 50px;
+            background-color: var(--blanco);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--gris-secundario);
+        }
+
+        .lateral-info-formulario {
+            background-color: #0b1326;
+            color: var(--blanco);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .lateral-info-formulario h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--naranja-corporativo);
+            margin-bottom: 20px;
+        }
+
+        .lateral-info-formulario p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #A0AEC0;
+            margin-bottom: 30px;
+        }
+
+        .beneficio-form-li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .beneficio-form-li i {
+            color: var(--naranja-corporativo);
+            font-size: 1.1rem;
+            margin-top: 3px;
+        }
+
+        .beneficio-form-li span {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        /* Estilos del Formulario */
+        .contenedor-formulario-real {
+            padding: 50px 40px;
+        }
+
+        .fila-formulario-doble {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grupo-campo-formulario {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .grupo-campo-formulario label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--azul-corporativo);
+            letter-spacing: 0.5px;
+        }
+
+        .grupo-campo-formulario input,
+        .grupo-campo-formulario select,
+        .grupo-campo-formulario textarea {
+            padding: 12px 15px;
+            border: 1px solid var(--gris-secundario);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--texto-oscuro);
+            background-color: var(--fondo-ligero);
+            transition: all 0.2s;
+        }
+
+        .grupo-campo-formulario input:focus,
+        .grupo-campo-formulario select:focus,
+        .grupo-campo-formulario textarea:focus {
+            outline: none;
+            border-color: var(--azul-corporativo);
+            background-color: var(--blanco);
+            box-shadow: 0 0 0 3px rgba(0, 23, 77, 0.08);
+        }
+
+        .btn-enviar-formulario {
+            width: 100%;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-enviar-formulario:hover {
+            background-color: var(--naranja-corporativo);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0b1326;
+            color: rgba(255,255,255,0.5);
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 3px solid var(--naranja-corporativo);
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN (MÓVIL Y TABLETAS)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .grid-programa-info { grid-template-columns: 1fr; gap: 40px; }
+            .grid-formulario-split { grid-template-columns: 1fr; }
+            .lateral-info-formulario { padding: 40px; }
+        }
+
+        @media (max-width: 600px) {
+            .banner-conexiones h1 { font-size: 2rem; }
+            .banner-conexiones p { font-size: 1rem; }
+            .grid-sectores-iconos { grid-template-columns: 1fr; }
+            .fila-formulario-doble { grid-template-columns: 1fr; gap: 0; }
+            .contenedor-formulario-real { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor header-wrap">
+            <a href="index.html" class="imagotipo" style="text-decoration:none;">
+                <div class="isotipo-cubo"></div>
+                <div class="logotipo-texto">cetlog</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="programas.html">Programas</a></li>
+                    <li><a href="metodologia.html">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li class="item-dropdown">
+                        <a href="visitas-tecnicas.html" class="active">CETLOG en Acción <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i></a>
+                        <ul class="menu-desplegable">
+                            <li><a href="conexiones-laborales.html" class="active">Conexiones Laborales</a></li>
+                            <li><a href="visitas-tecnicas.html">Visitas Técnicas</a></li>
+                            <li><a href="eventos.html">Eventos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
+        </div>
+    </header>
+
+    <main>
+        
+        <section class="banner-conexiones">
+            <div class="contenedor contenido-banner-conexiones">
+                <span class="tag-conexiones">Impulsando la Empleabilidad Real</span>
+                <h1>Programa de Conexiones Laborales</h1>
+                <p>El enlace estratégico directo entre el talento de alto rendimiento y las mejores empresas de la cadena de suministro.</p>
+            </div>
+        </section>
+
+        <section class="programa-info-seccion">
+            <div class="contenedor grid-programa-info">
+                
+                <div>
+                    <h2 class="subtitulo-destacado-corp">Conectamos talento con oportunidades reales</h2>
+                    <p class="parrafo-corporativo">
+                        En CETLOG, nuestra máxima prioridad consiste en formar profesionales altamente capacitados, dotados de un criterio técnico avanzado y listos para generar un impacto financiero u operativo inmediato desde su primer día en las organizaciones.
+                    </p>
+                    <p class="parrafo-corporativo">
+                        Por ello, hemos consolidado alianzas corporativas profundas con los líderes del mercado para acortar las distancias del reclutamiento tradicional. Nos enfocamos en un objetivo transparente: que las compañías más rigurosas y demandantes del país reconozcan y recluten la excelencia técnica de nuestra comunidad.
+                    </p>
+                </div>
+
+                <div class="sectores-alianza-box">
+                    <h3>Sectores con Red de Contacto Activa</h3>
+                    <div class="grid-sectores-iconos">
+                        <div class="sector-item">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Consumo Masivo</span>
+                        </div>
+                        <div class="sector-item">
+                            <i class="fa-solid fa-industry"></i>
+                            <span>Industria & Manufactura</span>
+                        </div>
+                        <div class="sector-item">
+                            <i class="fa-solid fa-shop"></i>
+                            <span>Retail Moderno</span>
+                        </div>
+                        <div class="sector-item">
+                            <i class="fa-solid fa-truck-ramp-box"></i>
+                            <span>Operadores Logísticos</span>
+                        </div>
+                        <div class="sector-item" style="grid-column: span 2; justify-content: center;">
+                            <i class="fa-solid fa-ship"></i>
+                            <span>Agencias de Comercio Exterior</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="compromiso-seccion">
+            <div class="contenedor compromiso-wrap">
+                <h2>Historias Reales, Resultados Reales</h2>
+                <div class="sub">¿Estás buscando al mejor talento en logística de Latinoamérica?</div>
+                
+                <p class="parrafo-corporativo" style="color: var(--gris-secundario);">
+                    En CETLOG tenemos la firme convicción de que las destrezas sobresalientes merecen canales directos de crecimiento, libres de fricciones o barreras burocráticas.
+                </p>
+
+                <div class="caja-cero-costo">
+                    <i class="fa-solid fa-handshake" style="font-size: 2rem; color: var(--naranja-corporativo); margin-bottom: 15px; display: block;"></i>
+                    Participar activamente en nuestro Programa de Conexiones Laborales <strong>no implica ningún costo financiero adicional</strong> para nuestros egresados ni para las empresas aliadas. Nuestro compromiso absoluto radica en catalizar tu siguiente gran salto profesional, vinculándote con corporaciones que buscan personas con visión práctica y listas para liderar el cambio en campo.
+                </div>
+            </div>
+        </section>
+
+        <section class="formulario-conexiones-seccion">
+            <div class="contenedor">
+                <h2 class="titulo-seccion-texto">Inicia tu proceso de conexión</h2>
+                <div class="subtitulo-seccion-linea"></div>
+
+                <div class="grid-formulario-split">
+                    
+                    <div class="lateral-info-formulario">
+                        <h3>¿Por qué registrarte?</h3>
+                        <p>Completa el formulario oficial para ingresar al radar de selección exclusivo de CETLOG y nuestras empresas aliadas.</p>
+                        
+                        <div class="beneficio-form-li">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Acceso prioritario a bolsas de empleo ocultas o no publicadas en portales comunes.</span>
+                        </div>
+                        <div class="beneficio-form-li">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Validación de perfil técnico directo por nuestro Board Académico ante el reclutador.</span>
+                        </div>
+                        <div class="beneficio-form-li">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Soporte gratuito de vinculación tanto para perfiles Junior como de Jefaturas.</span>
+                        </div>
+                    </div>
+
+                    <div class="contenedor-formulario-real">
+                        <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Solicitud enviada correctamente. Nuestro Comité de Empleabilidad se contactará contigo pronto.'); this.reset();">
+                            
+                            <div class="grupo-campo-formulario">
+                                <label for="perfil">Tipo de Registro</label>
+                                <select id="perfil" required>
+                                    <option value="" disabled selected>Selecciona tu perfil...</option>
+                                    <option value="estudiante">Soy Estudiante / Egresado de CETLOG</option>
+                                    <option value="empresa">Soy una Empresa buscando talento logístico</option>
+                                </select>
+                            </div>
+
+                            <div class="fila-formulario-doble">
+                                <div class="grupo-campo-formulario">
+                                    <label for="nombre">Nombre Completo / Empresa</label>
+                                    <input type="text" id="nombre" placeholder="Ej. Juan Pérez o Logística S.A." required>
+                                </div>
+                                <div class="grupo-campo-formulario">
+                                    <label for="email">Correo Electrónico Corporativo / Personal</label>
+                                    <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+                                </div>
+                            </div>
+
+                            <div class="fila-formulario-doble">
+                                <div class="grupo-campo-formulario">
+                                    <label for="telefono">Número de Celular</label>
+                                    <input type="tel" id="telefono" placeholder="987654321" required>
+                                </div>
+                                <div class="grupo-campo-formulario">
+                                    <label for="programa">Programa o Área de Interés</label>
+                                    <select id="programa">
+                                        <option value="almacenes">Gestión de Almacenes y CD</option>
+                                        <option value="transporte">Gestión de Transporte y Distribución</option>
+                                        <option value="comercio">Comercio Exterior y Aduanas</option>
+                                        <option value="compras">Compras Estratégicas y Demanda</option>
+                                        <option value="general">Bolsa General de Talentos</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grupo-campo-formulario">
+                                <label for="mensaje">Detalles Adicionales / Perfil del Puesto requerido</label>
+                                <textarea id="mensaje" rows="4" placeholder="Compártenos un breve resumen de tu experiencia, tus metas laborales, o el perfil técnico que tu empresa necesita incorporar de inmediato..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-enviar-formulario">Enviar Solicitud al Comité de Empleabilidad</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="contenedor">
+            <p style="margin-bottom: 12px;">
+                <a href="index.html">Inicio</a> &nbsp;·&nbsp;
+                <a href="programas.html">Programas</a> &nbsp;·&nbsp;
+                <a href="visitas-tecnicas.html">Visitas Técnicas</a> &nbsp;·&nbsp;
+                <a href="eventos.html">Eventos</a> &nbsp;·&nbsp;
+                <a href="mailto:informes@cetlog.com.pe">informes@cetlog.com.pe</a>
+            </p>
+            <p>&copy; 2026 CETLOG - Centro de Entrenamiento Técnico en Logística. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

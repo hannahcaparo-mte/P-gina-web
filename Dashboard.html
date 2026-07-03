@@ -1,0 +1,592 @@
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { 
+  PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer 
+} from 'recharts';
+import { 
+  Users, AlertCircle, Clock, CheckCircle, Award, Search, Filter, Download, Upload, Phone, Edit3, TrendingUp 
+} from 'lucide-react';
+
+// --- DATA INICIAL (Basada en tu Excel para demo) ---
+const rawInitialData = `Nombre del estudiante,Identificación del estudiante,Progreso,Se le llamó,Comentarios,Tiempo total,Último acceso,Promedio final
+Moral Herbas Mike Jhoe,DNI 41785431,100,Si,Pagó certificado,150.06 horas,7/05/2026,200
+Quinto Lazo Franck,DNI 75608292,100,Si,Pagó certificado,46 minutos,7/05/2026,200
+Ulloa Riofrio Hiromy Yadhira,DNI 76566808,100,Si,,53 minutos,6/03/2026,0.0
+Condori Victoria Heidy Sofía,DNI 73653364,0.99,No,Prometió terminar hoy,5.16 horas,8/03/2026,0.0
+Villon Jimenez Dayana Nickol,DNI 76646273,0,No,,0 segundos,- sin ingresos -,0.0
+Yalico Quispe Yomara Araceli,DNI 71126121,65%,Si,Pide ampliación,20 segundos,28/01/2026,0.0
+Yangua Huaman Claudia Sofía,DNI 75507318,30,No,No contesta,0 segundos,- sin ingresos -,0.0
+Ymbertis Alcantara Liz Betty,DNI 45032708,0.75,No,,0 segundos,- sin ingresos -,0.0
+Ysla Suyo Alejandrina Milagros,DNI 10022893,0.85,Si,Terminará el finde,0 segundos,- sin ingresos -,0.0
+Ejemplo Certificado Juan,DNI 11223344,1,Si,Apto,10 horas,1/05/2026,200`;
+
+// --- FUNCIONES ROBUSTAS DE NORMALIZACIÓN ---
+
+const getNormalizedProgress = (row) => {
+  const keys = Object.keys(row);
+  const progKey = keys.find(k => k.toLowerCase().replace(/\s/g, '').includes('progreso'));
+  if (!progKey) return 0;
+  
+  const value = row[progKey];
+  
+  if (value === null || value === undefined || value === "") return 0;
+
+  let cleanValue = String(value)
+    .replace("%", "")
+    .replace(",", ".")
+    .trim();
+
+  let num = parseFloat(cleanValue);
+
+  if (isNaN(num)) return 0;
+
+  // Obtener nombre para el log de depuración
+  const nameKey = keys.find(k => k.toLowerCase().includes('nombre'));
+  const studentName = nameKey ? row[nameKey] : 'Desconocido';
+
+  // Log de validación solicitado
+  console.log(studentName, "Valor original:", value, "Valor normalizado:", Math.round(num));
+
+  // IMPORTANTE:
+  // En esta base:
+  // 1 = 1%
+  // 99 = 99%
+  // 100 = 100%
+  // NO convertir 1 a 100
+  return Math.round(num);
+};
+
+const getNormalizedScore = (row) => {
+  const keys = Object.keys(row);
+  const scoreKey = keys.find(k => k.toLowerCase().replace(/\s/g, '').includes('promedio'));
+  if (!scoreKey) return 0;
+  
+  let val = row[scoreKey];
+  let numVal = parseFloat(val);
+  return isNaN(numVal) ? 0 : numVal;
+};
+
+const getStudentName = (row) => {
+  const keys = Object.keys(row);
+  const nameKey = keys.find(k => k.toLowerCase().includes('nombre'));
+  return nameKey ? row[nameKey] : 'Estudiante Desconocido';
+};
+
+const getStudentId = (row) => {
+  const keys = Object.keys(row);
+  const idKey = keys.find(k => k.toLowerCase().includes('identificación') || k.toLowerCase().includes('dni') || k.toLowerCase().includes('documento'));
+  return idKey ? row[idKey] : '';
+};
+
+
+export default function AcademicDashboard() {
+  const [data, setData] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [lastUpdate, setLastUpdate] = useState(new Date().toLocaleString());
+  const fileInputRef = useRef(null);
+  const [isXlsxReady, setIsXlsxReady] = useState(false);
+
+  // Cargar librería XLSX dinámicamente
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+    script.async = true;
+    script.onload = () => setIsXlsxReady(true);
+    document.body.appendChild(script);
+    
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  // Inicializar data
+  useEffect(() => {
+    if (!isXlsxReady) return;
+
+    // Leemos la data inicial parseándola con window.XLSX para mantener homogeneidad
+    const workbook = window.XLSX.read(rawInitialData, { type: 'string' });
+    const ws = workbook.Sheets[workbook.SheetNames[0]];
+    const jsonData = window.XLSX.utils.sheet_to_json(ws, { defval: "" });
+    const dataObjects = jsonData.map((row, index) => ({ id: index, ...row }));
+    setData(dataObjects);
+  }, [isXlsxReady]);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!isXlsxReady) {
+        alert("La librería de Excel aún está cargando. Intenta de nuevo en unos segundos.");
+        return;
+      }
+      const reader = new FileReader();
+      
+      reader.onload = (evt) => {
+        try {
+          const bstr = evt.target.result;
+          // Leer con ArrayBuffer
+          const workbook = window.XLSX.read(bstr, { type: 'array' });
+          const worksheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[worksheetName];
+          // Convertir a JSON
+          const jsonData = window.XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+          
+          if (jsonData.length > 0) {
+            console.log("=== DEBUGGING EXCEL LOAD ===");
+            console.log("1. Headers detectados:", Object.keys(jsonData[0]));
+            console.log("2. Primeras 5 filas:", jsonData.slice(0, 5));
+            console.log("3. Progreso detectado por alumno (Primeros 15):");
+            jsonData.slice(0, 15).forEach((row) => {
+              console.log(`   - ${getStudentName(row)} -> Progreso Normalizado: ${getNormalizedProgress(row)}%`);
+            });
+            console.log("============================");
+          }
+
+          const dataObjects = jsonData.map((row, index) => ({ id: index, ...row }));
+          setData(dataObjects);
+          setLastUpdate(new Date().toLocaleString());
+        } catch (error) {
+          console.error("Error al procesar el archivo Excel:", error);
+          alert("Hubo un error leyendo el archivo. Asegúrate de que sea un Excel válido.");
+        }
+      };
+      
+      // Ya no es readAsText, es readAsArrayBuffer
+      reader.readAsArrayBuffer(file);
+    }
+    // Limpiar input
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  // Función para calcular la categoría de un estudiante (Movida arriba para uso en exportación)
+  const getStudentCategory = (student) => {
+    const prog = getNormalizedProgress(student);
+    const score = getNormalizedScore(student);
+    
+    if (prog === 100 && score === 200) return "Apto Certificación";
+    if (prog === 100 && score < 200) return "Culminado pendiente";
+    if (prog >= 71 && prog <= 99) return "Óptimo";
+    if (prog >= 50 && prog <= 70) return "Parcial";
+    return "Bajo";
+  };
+
+  const handleExport = () => {
+    if (filteredData.length === 0 || !isXlsxReady) return;
+
+    const exportData = filteredData.map(row => {
+      const cat = getStudentCategory(row);
+
+      return {
+        "Nombre del estudiante": getStudentName(row),
+        "Identificación del estudiante": getStudentId(row),
+        "Progreso %": getNormalizedProgress(row),
+        "Promedio final": getNormalizedScore(row),
+        "Estado calculado": cat,
+        "Último acceso": row["Último acceso"] || row["Ultimo acceso"] || "-",
+
+        "Está certificado": row["Está certificado"] || "",
+        "Comentario certificación": row["Comentario certificación"] || "",
+
+        "Se llamó": row["Se llamó"] || "",
+        "Comentario seguimiento": row["Comentario seguimiento"] || row["Comentarios"] || ""
+      };
+    });
+
+    const ws = window.XLSX.utils.json_to_sheet(exportData);
+    const wb = window.XLSX.utils.book_new();
+
+    window.XLSX.utils.book_append_sheet(wb, ws, "Reporte Seguimiento");
+
+    window.XLSX.writeFile(wb, "reporte_seguimiento_comercial_cetlog.xlsx");
+  };
+
+  // Guardar edición inline para alumnos 71-99%
+  const handleEditRow = (id, field, value) => {
+    setData(prevData => prevData.map(row => 
+      row.id === id ? { ...row, [field]: value } : row
+    ));
+  };
+
+  // Función para renderizar dinámicamente el módulo comercial
+  const renderFollowUpModule = (row, cat) => {
+    if (cat === "Apto Certificación") {
+      return (
+        <>
+          <td className="p-4 bg-blue-50/30 border-l border-slate-100 w-40">
+            <select
+              className="w-full text-sm border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-1.5"
+              value={row["Está certificado"] || ""}
+              onChange={(e) => handleEditRow(row.id, "Está certificado", e.target.value)}
+            >
+              <option value="">¿Está certificado?</option>
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select>
+          </td>
+
+          <td className="p-4 bg-blue-50/30 w-64">
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full text-sm border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-1.5 pr-8"
+                placeholder="Comentario de certificación..."
+                value={row["Comentario certificación"] || ""}
+                onChange={(e) => handleEditRow(row.id, "Comentario certificación", e.target.value)}
+              />
+              <Edit3 size={14} className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400" />
+            </div>
+          </td>
+        </>
+      );
+    }
+
+    if (cat === "Culminado pendiente" || cat === "Óptimo") {
+      // Validamos si ya venía un "Se le llamó" en el Excel original para no perder el dato
+      let seLlamoValue = row["Se llamó"] || "";
+      if (!seLlamoValue && row["Se le llamó"]) {
+        seLlamoValue = row["Se le llamó"].toLowerCase() === 'si' ? 'SI' : (row["Se le llamó"].toLowerCase() === 'no' ? 'NO' : '');
+      }
+
+      return (
+        <>
+          <td className="p-4 bg-blue-50/30 border-l border-slate-100 w-40">
+            <select
+              className="w-full text-sm border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-1.5"
+              value={seLlamoValue}
+              onChange={(e) => handleEditRow(row.id, "Se llamó", e.target.value)}
+            >
+              <option value="">¿Se llamó?</option>
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select>
+          </td>
+
+          <td className="p-4 bg-blue-50/30 w-64">
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full text-sm border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-1.5 pr-8"
+                placeholder="Comentario de seguimiento..."
+                value={row["Comentario seguimiento"] || row["Comentarios"] || ""}
+                onChange={(e) => handleEditRow(row.id, "Comentario seguimiento", e.target.value)}
+              />
+              <Edit3 size={14} className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400" />
+            </div>
+          </td>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <td className="p-4 bg-blue-50/30 border-l border-slate-100 text-slate-400 text-center font-bold">-</td>
+        <td className="p-4 bg-blue-50/30 text-slate-400 text-center font-bold">-</td>
+      </>
+    );
+  };
+
+  // Cálculos reactivos y filtros
+  const { kpis, chartData, funnelData, filteredData } = useMemo(() => {
+    const metrics = { Total: data.length, Bajo: 0, Parcial: 0, Óptimo: 0, CulminadoPendiente: 0, Apto: 0 };
+    
+    let f_iniciaron = 0;
+    let f_mitad = 0;
+    let f_optimo = 0;
+    let f_culminaron = 0;
+
+    let filtered = data.filter(student => {
+      const cat = getStudentCategory(student);
+      const prog = getNormalizedProgress(student);
+      const name = getStudentName(student);
+      
+      // Conteo KPIs exclusivos
+      if (cat === "Bajo") metrics.Bajo++;
+      if (cat === "Parcial") metrics.Parcial++;
+      if (cat === "Óptimo") metrics.Óptimo++;
+      if (cat === "Culminado pendiente") metrics.CulminadoPendiente++;
+      if (cat === "Apto Certificación") metrics.Apto++;
+
+      // Conteo Funnel (Mantiene la métrica general de llegada)
+      if (prog > 0) f_iniciaron++;
+      if (prog >= 50) f_mitad++;
+      if (prog >= 71) f_optimo++;
+      if (prog === 100) f_culminaron++;
+
+      // Filtro de búsqueda
+      const matchesSearch = name.toLowerCase().includes(searchQuery.toLowerCase());
+      // Filtro de estado
+      const matchesStatus = !selectedStatus || cat === selectedStatus;
+
+      return matchesSearch && matchesStatus;
+    });
+
+    const cData = [
+      { name: 'Bajo (0-49%)', value: metrics.Bajo, fill: '#ef4444' },
+      { name: 'Parcial (50-70%)', value: metrics.Parcial, fill: '#eab308' },
+      { name: 'Óptimo (71-99%)', value: metrics.Óptimo, fill: '#22c55e' },
+      { name: 'Culminado pdte.', value: metrics.CulminadoPendiente, fill: '#14b8a6' },
+      { name: 'Aptos', value: metrics.Apto, fill: '#9333ea' }
+    ];
+
+    const fData = [
+      { name: 'Inscritos', Cantidad: metrics.Total },
+      { name: 'Iniciaron (>0%)', Cantidad: f_iniciaron },
+      { name: 'Llegaron a 50%', Cantidad: f_mitad },
+      { name: 'Llegaron a 71%', Cantidad: f_optimo },
+      { name: 'Culminaron (100%)', Cantidad: f_culminaron }
+    ];
+
+    return { kpis: metrics, chartData: cData, funnelData: fData, filteredData: filtered };
+  }, [data, selectedStatus, searchQuery]);
+
+  // Estilos y componentes visuales de semáforo
+  const statusColors = {
+    'Bajo': { bg: 'bg-red-100', text: 'text-red-700', icon: <AlertCircle size={20} className="text-red-500"/> },
+    'Parcial': { bg: 'bg-yellow-100', text: 'text-yellow-700', icon: <Clock size={20} className="text-yellow-500"/> },
+    'Óptimo': { bg: 'bg-green-100', text: 'text-green-700', icon: <TrendingUp size={20} className="text-green-500"/> },
+    'Culminado pendiente': { bg: 'bg-teal-100', text: 'text-teal-700', icon: <CheckCircle size={20} className="text-teal-500"/> },
+    'Apto Certificación': { bg: 'bg-purple-100', text: 'text-purple-700', icon: <Award size={20} className="text-purple-500"/> }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-800">
+      
+      {/* HEADER GERENCIAL */}
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Dashboard de Seguimiento Académico</h1>
+          <p className="text-slate-500 mt-1 flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            Última actualización: {lastUpdate}
+          </p>
+        </div>
+        <div className="mt-4 md:mt-0 flex gap-3">
+          <input 
+            type="file" 
+            accept=".xlsx, .xls, .csv" 
+            ref={fileInputRef} 
+            onChange={handleFileUpload} 
+            className="hidden" 
+          />
+          <button 
+            onClick={() => fileInputRef.current.click()}
+            className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors shadow-sm font-medium"
+          >
+            <Upload size={18} /> Subir Data (Excel)
+          </button>
+          <button 
+            onClick={handleExport}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md shadow-blue-200 font-medium"
+          >
+            <Download size={18} /> Exportar Reporte
+          </button>
+        </div>
+      </header>
+
+      {/* KPI CARDS (Clickeables) */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+        <KPICard 
+          title="Total Inscritos" value={kpis.Total} icon={<Users size={24}/>} color="bg-slate-800" textColor="text-white"
+          onClick={() => setSelectedStatus(null)} active={selectedStatus === null}
+        />
+        <KPICard 
+          title="Bajo Avance (0-49%)" value={kpis.Bajo} icon={<AlertCircle size={24}/>} color="bg-red-500" textColor="text-white"
+          onClick={() => setSelectedStatus('Bajo')} active={selectedStatus === 'Bajo'}
+        />
+        <KPICard 
+          title="Avance Parcial (50-70%)" value={kpis.Parcial} icon={<Clock size={24}/>} color="bg-yellow-500" textColor="text-white"
+          onClick={() => setSelectedStatus('Parcial')} active={selectedStatus === 'Parcial'}
+        />
+        <KPICard 
+          title="Óptimo (71-99%)" value={kpis.Óptimo} icon={<TrendingUp size={24}/>} color="bg-green-500" textColor="text-white"
+          onClick={() => setSelectedStatus('Óptimo')} active={selectedStatus === 'Óptimo'}
+        />
+        <KPICard 
+          title="Culminados (pdte.)" value={kpis.CulminadoPendiente} icon={<CheckCircle size={24}/>} color="bg-teal-500" textColor="text-white"
+          onClick={() => setSelectedStatus('Culminado pendiente')} active={selectedStatus === 'Culminado pendiente'}
+        />
+        <KPICard 
+          title="Aptos para Certificar" value={kpis.Apto} icon={<Award size={24}/>} color="bg-purple-600" textColor="text-white"
+          onClick={() => setSelectedStatus('Apto Certificación')} active={selectedStatus === 'Apto Certificación'}
+        />
+      </div>
+
+      {/* GRÁFICOS */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* Gráfico 1: Distribución */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-96">
+          <h3 className="text-lg font-semibold mb-4 text-slate-800">Distribución de Estados</h3>
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie data={chartData} cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="value" label>
+                {chartData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
+              </Pie>
+              <RechartsTooltip />
+              <Legend verticalAlign="bottom" height={36}/>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Gráfico 2: Barras */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-96">
+          <h3 className="text-lg font-semibold mb-4 text-slate-800">Entrenados por Estado</h3>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0"/>
+              <XAxis dataKey="name" tick={{fontSize: 12}} />
+              <YAxis allowDecimals={false} />
+              <RechartsTooltip cursor={{fill: 'transparent'}}/>
+              <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                {chartData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Gráfico 3: Funnel */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-96">
+          <h3 className="text-lg font-semibold mb-4 text-slate-800">Embudo de Retención</h3>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart layout="vertical" data={funnelData} margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
+              <XAxis type="number" />
+              <YAxis dataKey="name" type="category" tick={{fontSize: 11, width: 100}} width={90}/>
+              <RechartsTooltip />
+              <Bar dataKey="Cantidad" fill="#3b82f6" radius={[0, 6, 6, 0]} barSize={30} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* SECCIÓN DE TABLA E INTERACTIVIDAD */}
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="p-6 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-50/50">
+          <div className="flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-800">
+              {selectedStatus ? `Filtrando: ${selectedStatus}` : 'Todos los Estudiantes'}
+            </h2>
+            <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full">
+              {filteredData.length} registros
+            </span>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
+              <input 
+                type="text" 
+                placeholder="Buscar por nombre..." 
+                className="pl-10 pr-4 py-2 border border-slate-300 rounded-lg w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            {selectedStatus && (
+               <button 
+                  onClick={() => setSelectedStatus(null)}
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors font-medium text-sm"
+               >
+                 <Filter size={16} /> Limpiar Filtro
+               </button>
+            )}
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 text-sm font-semibold uppercase tracking-wider">
+                <th className="p-4">Nombre del Estudiante</th>
+                <th className="p-4 text-center">Progreso %</th>
+                <th className="p-4 text-center">Promedio</th>
+                <th className="p-4">Estado</th>
+                <th className="p-4">Último Acceso</th>
+                <th className="p-4 bg-blue-50/50 border-l border-blue-100" colSpan={2}>
+                  <div className="flex items-center gap-2 text-blue-800">
+                    <Phone size={16}/> Módulo de Seguimiento Comercial
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {filteredData.length > 0 ? filteredData.map((row) => {
+                const cat = getStudentCategory(row);
+                const isOptimal = cat === 'Óptimo';
+                const style = statusColors[cat];
+                const normalizedProgress = getNormalizedProgress(row);
+                const normalizedScore = getNormalizedScore(row);
+                const studentName = getStudentName(row);
+                const studentId = getStudentId(row);
+
+                return (
+                  <tr key={row.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="p-4 font-medium text-slate-800">
+                      {studentName}
+                      <div className="text-xs text-slate-400 font-normal">{studentId}</div>
+                    </td>
+                    <td className="p-4 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-16 h-2 bg-slate-200 rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full rounded-full ${style.bg.replace('100', '500')}`} 
+                            style={{width: `${normalizedProgress}%`}}
+                          ></div>
+                        </div>
+                        <span className="font-bold text-slate-700">{normalizedProgress}%</span>
+                      </div>
+                    </td>
+                    <td className="p-4 text-center font-semibold text-slate-700">
+                      {normalizedScore}
+                    </td>
+                    <td className="p-4">
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold ${style.bg} ${style.text}`}>
+                        {style.icon}
+                        {cat}
+                      </span>
+                    </td>
+                    <td className="p-4 text-sm text-slate-500">
+                      {row['Último acceso'] || row['Ultimo acceso'] || '-'}
+                    </td>
+                    
+                    {/* COLUMNAS DE SEGUIMIENTO (Dinámicas por estado) */}
+                    {renderFollowUpModule(row, cat)}
+                  </tr>
+                );
+              }) : (
+                <tr>
+                  <td colSpan="7" className="p-8 text-center text-slate-500">
+                    <AlertCircle size={48} className="mx-auto text-slate-300 mb-3" />
+                    <p className="text-lg">No se encontraron estudiantes con esos criterios.</p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+  );
+}
+
+// Componente para KPI Card
+function KPICard({ title, value, icon, color, textColor, onClick, active }) {
+  return (
+    <div 
+      onClick={onClick}
+      className={`relative p-5 rounded-2xl shadow-sm border cursor-pointer transition-all duration-200 overflow-hidden group
+        ${active ? `ring-2 ring-offset-2 ring-${color.replace('bg-', '')} border-transparent` : 'border-slate-200 hover:shadow-md bg-white hover:-translate-y-1'}
+        ${active && color === 'bg-slate-800' ? 'ring-slate-800' : ''}
+      `}
+    >
+      <div className={`absolute top-0 left-0 w-full h-1.5 ${color}`}></div>
+      <div className="flex justify-between items-start mt-2">
+        <div>
+          <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-1">{title}</p>
+          <h3 className="text-3xl font-extrabold text-slate-800">{value}</h3>
+        </div>
+        <div className={`p-3 rounded-xl ${active ? color : 'bg-slate-50 group-hover:bg-slate-100'} ${active ? textColor : color.replace('bg-', 'text-')}`}>
+          {icon}
+        </div>
+      </div>
+    </div>
+  );
+}
