@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programas - CETLOG</title>
+    <meta name="description" content="Conoce todos los programas técnicos de CETLOG en Comercio Exterior y Operaciones Logísticas: Analista COMEX, Sectorista de Aduana, Lean Logistics y más.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE MARCA --- */
+        :root {
+            --azul-corporativo: #00174D;  
+            --naranja-corporativo: #F17900; 
+            --gris-secundario: #E6E6E6;     
+            --blanco: #FFFFFF;
+            --texto-oscuro: #1A202C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco);
+            color: var(--texto-oscuro);
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn-principal {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-principal:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(241, 121, 0, 0.3);
+        }
+
+        .titulo-seccion-texto {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitulo-seccion-linea {
+            width: 80px;
+            height: 4px;
+            background-color: var(--naranja-corporativo);
+            margin: 0 auto 40px auto;
+        }
+
+        /* --- HEADER Y MENÚ --- */
+        header {
+            background-color: var(--blanco);
+            border-bottom: 2px solid var(--gris-secundario);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .imagotipo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .isotipo-cubo {
+            width: 35px;
+            height: 35px;
+            background-color: var(--blanco);
+            border: 3px solid var(--azul-corporativo);
+            position: relative;
+            box-shadow: -6px 6px 0px var(--naranja-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .isotipo-cubo::after {
+            content: "c";
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            font-size: 1.2rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .logotipo-texto {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--azul-corporativo);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--azul-corporativo);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        nav ul li a.active {
+            color: var(--naranja-corporativo);
+        }
+
+        /* --- 1. BANNERS CON 3 SLIDES --- */
+        .banner-programas-container {
+            position: relative;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            overflow: hidden;
+            height: 450px;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            width: 300%; 
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .programa-slide {
+            width: 33.333%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(0,23,77,0.95) 45%, rgba(0,23,77,0.4) 100%);
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+            padding: 0 20px;
+        }
+
+        .tag-slide {
+            display: inline-block;
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 6px 14px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            border-radius: 2px;
+        }
+
+        .titulo-slide {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .desc-slide {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slide-dot.active {
+            background-color: var(--naranja-corporativo);
+            width: 35px;
+            border-radius: 6px;
+        }
+
+        /* --- 2. FILTROS DE PROGRAMAS --- */
+        .seccion-busqueda-programas {
+            padding: 80px 0;
+            background-color: #F9FAFB;
+        }
+
+        .texto-introductorio {
+            text-align: center;
+            font-size: 1.05rem;
+            color: #555;
+            max-width: 700px;
+            margin: -20px auto 40px auto;
+            line-height: 1.6;
+        }
+
+        .contenedor-filtros {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .cuadro-filtro {
+            background-color: var(--blanco);
+            border: 2px solid var(--gris-secundario);
+            color: var(--azul-corporativo);
+            padding: 15px 40px;
+            font-weight: 800;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .cuadro-filtro:hover, .cuadro-filtro.active {
+            background-color: var(--azul-corporativo);
+            border-color: var(--azul-corporativo);
+            color: var(--blanco);
+            box-shadow: 0 6px 15px rgba(0, 23, 77, 0.15);
+        }
+
+        .cuadro-filtro.active {
+            border-bottom: 4px solid var(--naranja-corporativo);
+        }
+
+        .grid-programas-propios {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .tarjeta-programa-filtro {
+            background-color: var(--blanco);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tarjeta-programa-filtro:hover {
+            transform: translateY(-5px);
+            border-bottom: 4px solid var(--naranja-corporativo);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .mini-banner-tarjeta {
+            height: 140px;
+            background-color: var(--azul-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blanco);
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .tag-categoria-tarjeta {
+            position: absolute;
+            top: 15px; left: 15px;
+            background-color: rgba(255,255,255,0.2);
+            color: var(--blanco);
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 2px;
+            backdrop-filter: blur(4px);
+        }
+
+        .info-tarjeta-filtro {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .titulo-programa-filtro {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .meta-programa {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* --- 3. CARRUSEL DE INSTRUCTORES --- */
+        .instructores-seccion {
+            padding: 90px 0;
+            background-color: var(--blanco);
+        }
+
+        .carrusel-instructores-externo {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .instructores-ventana {
+            width: 100%;
+            overflow: hidden;
+            padding: 15px 5px;
+        }
+
+        .instructores-track {
+            display: flex;
+            gap: 25px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .tarjeta-instructor {
+            background-color: #FCFCFC;
+            border: 1px solid #F0F0F0;
+            border-radius: 6px;
+            overflow: hidden;
+            text-align: center;
+            padding: 30px 20px;
+            transition: all 0.3s;
+            width: calc((100% - 75px) / 4);
+            flex-shrink: 0;
+        }
+
+        .tarjeta-instructor:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: var(--naranja-corporativo);
+        }
+
+        .avatar-instructor {
+            width: 110px;
+            height: 110px;
+            background-color: var(--gris-secundario);
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            border: 3px solid var(--blanco);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--azul-corporativo);
+            font-size: 2.8rem;
+        }
+
+        .nombre-instructor {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            margin-bottom: 5px;
+        }
+
+        .cargo-instructor {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--naranja-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .desc-instructor {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            min-height: 80px;
+        }
+
+        .btn-perfil-instructor {
+            background: transparent;
+            border: 2px solid var(--azul-corporativo);
+            color: var(--azul-corporativo);
+            padding: 10px 18px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn-perfil-instructor:hover {
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+        }
+
+        .btn-inst-nav {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 5;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        .btn-inst-nav:hover { background-color: var(--naranja-corporativo); }
+        .btn-inst-nav.prev { left: -20px; }
+        .btn-inst-nav.next { right: -20px; }
+
+        /* --- 4. ¿POR QUÉ SOMOS TU MEJOR OPCIÓN? --- */
+        .mejor-opcion-seccion {
+            padding: 90px 0;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+        }
+
+        .grid-mejor-opcion {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .box-opcion {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .box-opcion .numero-gigante {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--naranja-corporativo);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .box-opcion h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .box-opcion p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+
+        /* --- 5. DETALLE ESTRUCTURAL CAMBIADO: ALIANZAS (BOTONES COMPACTOS + LOGOS MÁS GRANDES) --- */
+        .alianzas-seccion {
+            padding: 90px 0;
+            background-color: #F9FAFB;
+        }
+
+        /* Grid de los 3 Botones principales (Estilizados, sin iconos, no tan grandes) */
+        .grid-botones-alianzas {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .boton-cuadro-alianza {
+            background-color: var(--blanco);
+            border: 2px solid var(--gris-secundario);
+            border-radius: 4px;
+            padding: 12px 30px; /* Tamaño más compacto */
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            min-width: 180px;
+        }
+
+        .boton-cuadro-alianza h3 {
+            font-size: 0.9rem; /* Fuente sutil y proporcionada */
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        /* Estados Hover y Activo del botón */
+        .boton-cuadro-alianza:hover,
+        .boton-cuadro-alianza.active {
+            border-color: var(--azul-corporativo);
+            box-shadow: 0 4px 12px rgba(0, 23, 77, 0.08);
+        }
+
+        .boton-cuadro-alianza.active {
+            background-color: var(--azul-corporativo);
+        }
+
+        .boton-cuadro-alianza.active h3 {
+            color: var(--blanco);
+        }
+
+        /* Contenedor de despliegue de logos */
+        .despliegue-carruseles-alianzas {
+            background-color: var(--blanco);
+            border: 1px solid var(--gris-secundario);
+            border-radius: 6px;
+            padding: 35px 0; /* Mayor padding para logos grandes */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bloque-bucle-logos {
+            display: none;
+            width: 100%;
+        }
+
+        .bloque-bucle-logos.active {
+            display: flex;
+        }
+
+        /* Máscaras de degradado a los lados */
+        .despliegue-carruseles-alianzas::before,
+        .despliegue-carruseles-alianzas::after {
+            content: "";
+            height: 100%;
+            width: 80px;
+            position: absolute;
+            top: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .despliegue-carruseles-alianzas::before {
+            left: 0;
+            background: linear-gradient(to right, var(--blanco) 0%, rgba(255,255,255,0) 100%);
+        }
+        .despliegue-carruseles-alianzas::after {
+            right: 0;
+            background: linear-gradient(to left, var(--blanco) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        /* Tira interna del bucle continuo */
+        .track-infinito-logos {
+            display: flex;
+            width: max-content;
+            gap: 40px; /* Mayor separación */
+            animation: scrollLogosBucle 16s linear infinite;
+        }
+
+        .despliegue-carruseles-alianzas:hover .track-infinito-logos {
+            animation-play-state: paused;
+        }
+
+        /* Estilo de los Logos: Ajustados para ser UN POCO MÁS GRANDES */
+        .item-logo-alianza {
+            width: 170px;   /* Tamaño ampliado */
+            height: 70px;   /* Tamaño ampliado */
+            background-color: #FAFAFA;
+            border: 1px solid #EDEDED;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        /* Animación fluida de loop infinito */
+        @keyframes scrollLogosBucle {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 20px)); }
+        }
+
+        /* --- 6. NUESTRA COMUNIDAD OPINA --- */
+        .comunidad-seccion {
+            padding: 90px 0;
+            background-color: var(--blanco);
+        }
+
+        .grid-cuatro-testimonios {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px;
+        }
+
+        .tarjeta-testimonio-columna {
+            background-color: #FCFCFC;
+            border: 1px solid #EEF0F3;
+            border-top: 4px solid var(--naranja-corporativo);
+            border-radius: 4px;
+            overflow: hidden;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .tarjeta-testimonio-columna:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-color: var(--gris-secundario);
+        }
+
+        .contenedor-video-columna {
+            width: 100%;
+            height: 230px; 
+            background-color: var(--azul-corporativo);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: var(--blanco);
+            overflow: hidden;
+        }
+
+        .contenedor-video-columna i.fa-play-circle {
+            font-size: 2.8rem;
+            cursor: pointer;
+            z-index: 3;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .contenedor-video-columna i.fa-play-circle:hover {
+            transform: scale(1.1);
+            color: var(--naranja-corporativo);
+        }
+
+        .capa-imagen-video {
+            position: absolute;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .info-texto-columna h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            margin-bottom: 2px;
+        }
+
+        .info-texto-columna .tag-programa-egresado {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--naranja-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .info-texto-columna p {
+            font-size: 0.8rem;
+            color: #555;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* --- 7. FOOTER --- */
+        footer {
+            background-color: #000F33;
+            color: var(--blanco);
+            padding: 60px 0;
+            border-top: 4px solid var(--naranja-corporativo);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        .footer-col h4 {
+            color: var(--naranja-corporativo);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .footer-col ul { list-style: none; }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        /* --- COBERTURA RESPONSIVE --- */
+        @media (max-width: 1100px) {
+            .tarjeta-instructor { width: calc((100% - 50px) / 3); } 
+            .grid-cuatro-testimonios { grid-template-columns: repeat(2, 1fr); } 
+        }
+        @media (max-width: 900px) {
+            .grid-programas-propios { grid-template-columns: repeat(2, 1fr); }
+            .tarjeta-instructor { width: calc((100% - 25px) / 2); } 
+            .grid-botones-alianzas { flex-direction: column; align-items: center; gap: 10px; }
+            .boton-cuadro-alianza { width: 100%; max-width: 300px; }
+        }
+        @media (max-width: 768px) {
+            .grid-programas-propios, .grid-mejor-opcion, .footer-grid, .grid-cuatro-testimonios { grid-template-columns: 1fr; }
+            .tarjeta-instructor { width: 100%; } 
+            nav { display: none; }
+            .contenedor-filtros { flex-direction: column; gap: 10px; }
+            .cuadro-filtro { width: 100%; }
+            .titulo-slide { font-size: 1.8rem; }
+            .banner-programas-container { height: 400px; }
+            .btn-inst-nav { display: none; } 
+            .instructores-ventana { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor header-wrap">
+            <a href="index.html" class="imagotipo" style="text-decoration:none;">
+                <div class="isotipo-cubo"></div>
+                <div class="logotipo-texto">cetlog</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="programas.html" class="active">Programas</a></li>
+                    <li><a href="metodologia.html">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
+        </div>
+    </header>
+
+    <section class="banner-programas-container">
+        <div class="slide-wrapper" id="sliderProgramasWrapper">
+            <div class="programa-slide" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200');">
+                <div class="slide-overlay"></div>
+                <div class="contenedor" style="width: 100%;">
+                    <div class="slide-content">
+                        <span class="tag-slide">Capacitación Libre</span>
+                        <h2 class="titulo-slide">Próximos Webinars Gratuitos</h2>
+                        <p class="desc-slide">Participa en nuestras masterclasses exclusivas en vivo junto a expertos del sector y actualiza tus conocimientos en la cadena de suministro.</p>
+                        <button class="btn-principal">Reservar Mi Cupo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="programa-slide" style="background-image: url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200');">
+                <div class="slide-overlay"></div>
+                <div class="contenedor" style="width: 100%;">
+                    <div class="slide-content">
+                        <span class="tag-slide">Experiencia de Campo</span>
+                        <h2 class="titulo-slide">Ruta del Contenedor</h2>
+                        <p class="desc-slide">Sigue de cerca el flujo logístico real, desde el puerto hasta el almacén final. Un recorrido inmersivo diseñado para estrategas logísticos.</p>
+                        <button class="btn-principal">Ver Detalle de Ruta</button>
+                    </div>
+                </div>
+            </div>
+            <div class="programa-slide" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200');">
+                <div class="slide-overlay"></div>
+                <div class="contenedor" style="width: 100%;">
+                    <div class="slide-content">
+                        <span class="tag-slide">Infraestructura Tecnológica</span>
+                        <h2 class="titulo-slide">Laboratorio Logístico Físico</h2>
+                        <p class="desc-slide">El primer espacio especializado de simulación en el país. Aprende operando con las mismas herramientas e incidencias del mercado laboral real.</p>
+                        <button class="btn-principal">Explorar Espacio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <div class="slide-dot active" onclick="irAlSlideProgramas(0)"></div>
+            <div class="slide-dot" onclick="irAlSlideProgramas(1)"></div>
+            <div class="slide-dot" onclick="irAlSlideProgramas(2)"></div>
+        </div>
+    </section>
+
+    <section class="seccion-busqueda-programas">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto">Encuentra tu programa adecuado</h2>
+            <div class="subtitulo-seccion-linea"></div>
+            <p class="texto-introductorio">Explora nuestra oferta educativa técnica especializada y elige la categoría que impulse tus metas profesionales.</p>
+
+            <div class="contenedor-filtros">
+                <div class="cuadro-filtro active" onclick="filtrarCategoria('todos', this)">Todos</div>
+                <div class="cuadro-filtro" onclick="filtrarCategoria('comex', this)">COMEX</div>
+                <div class="cuadro-filtro" onclick="filtrarCategoria('opl', this)">OPL</div>
+            </div>
+
+            <div class="grid-programas-propios" id="gridProgramas">
+                <div class="tarjeta-programa-filtro" data-categoria="comex">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-globe"></i><span class="tag-categoria-tarjeta">Comex</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Analista de Comercio Exterior</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 48 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Técnico</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+                <div class="tarjeta-programa-filtro" data-categoria="opl">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-chart-line"></i><span class="tag-categoria-tarjeta">Opl</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Lean Logistics</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 36 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Ejecutivo</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+                <div class="tarjeta-programa-filtro" data-categoria="comex">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-file-invoice-dollar"></i><span class="tag-categoria-tarjeta">Comex</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Sectorista de Aduana</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 50 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Técnico</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+                <div class="tarjeta-programa-filtro" data-categoria="comex">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-ship"></i><span class="tag-categoria-tarjeta">Comex</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Transporte de Carga Internacional</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 40 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Especializado</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+                <div class="tarjeta-programa-filtro" data-categoria="comex">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-user-shield"></i><span class="tag-categoria-tarjeta">Comex</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Programa Ejecutivo de Gestión Aduanera</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 60 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Ejecutivo</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+                <div class="tarjeta-programa-filtro" data-categoria="opl">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-truck-ramp-box"></i><span class="tag-categoria-tarjeta">Opl</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Gestión de Transporte y Distribución</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 45 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Técnico</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+                <div class="tarjeta-programa-filtro" data-categoria="opl">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-warehouse"></i><span class="tag-categoria-tarjeta">Opl</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Gestión de Almacenes y Centros de Distribución</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 48 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Técnico</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+                <div class="tarjeta-programa-filtro" data-categoria="opl">
+                    <div class="mini-banner-tarjeta"><i class="fa-solid fa-calculator"></i><span class="tag-categoria-tarjeta">Opl</span></div>
+                    <div class="info-tarjeta-filtro">
+                        <h3 class="titulo-programa-filtro">Compras Estratégicas y Planeamiento de la Demanda</h3>
+                        <div class="meta-programa"><span><i class="fa-solid fa-clock"></i> 42 Horas</span><span><i class="fa-solid fa-graduation-cap"></i> Especializado</span></div>
+                        <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="instructores-seccion">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto">Conoce a los Instructores</h2>
+            <div class="subtitulo-seccion-linea"></div>
+            
+            <div class="carrusel-instructores-externo">
+                <button class="btn-inst-nav prev" id="btnInstPrev"><i class="fa-solid fa-chevron-left"></i></button>
+                
+                <div class="instructores-ventana">
+                    <div class="instructores-track" id="instructoresTrack">
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Ing. Carlos Mendoza</h3>
+                            <p class="cargo-instructor">Director de OPL</p>
+                            <p class="desc-instructor">Más de 12 años liderando la cadena de suministro y distribución en operadores logísticos de primer nivel.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Lic. Martha Rossi</h3>
+                            <p class="cargo-instructor">Especialista COMEX</p>
+                            <p class="desc-instructor">Consultora senior en aduanas y regímenes internacionales de carga marítima y aérea.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Mg. Luis Fernando</h3>
+                            <p class="cargo-instructor">Gerente de Compras</p>
+                            <p class="desc-instructor">Experto en abastecimiento estratégico global y modelado de planeamiento de la demanda.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Ing. Ricardo Alva</h3>
+                            <p class="cargo-instructor">Consultor Lean</p>
+                            <p class="desc-instructor">Especialista enfocado en la eliminación de desperdicios en almacenes de alta rotación.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Dra. Elena Rostova</h3>
+                            <p class="cargo-instructor">Derecho Aduanero</p>
+                            <p class="desc-instructor">Abogada especialista en legislación fiscal aduanera y solución de discrepancias ante SUNAT.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Ing. Jorge Benavides</h3>
+                            <p class="cargo-instructor">Gestor de WMS</p>
+                            <p class="desc-instructor">Especialista en integración de tecnologías aplicadas al control y trazabilidad de inventarios.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Lic. Sergio Paredes</h3>
+                            <p class="cargo-instructor">Agenciamiento Marítimo</p>
+                            <p class="desc-instructor">Operador experto en la consolidación de carga en terminales portuarios del Callao.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Mg. Diana Cáceres</h3>
+                            <p class="cargo-instructor">Distribución Última Milla</p>
+                            <p class="desc-instructor">Estratega enfocada en la optimización de rutas urbanas para el sector E-commerce actual.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Ing. Arturo Flores</h3>
+                            <p class="cargo-instructor">Seguridad Industrial</p>
+                            <p class="desc-instructor">Auditor líder en prevención de riesgos ocupacionales y control patrimonial en CD.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                        <div class="tarjeta-instructor">
+                            <div class="avatar-instructor"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3 class="nombre-instructor">Lic. Roberto Vélez</h3>
+                            <p class="cargo-instructor">Logística Global</p>
+                            <p class="desc-instructor">Consultor internacional en redes complejas de suministro intermodal para LATAM.</p>
+                            <button class="btn-perfil-instructor">Conoce su Perfil</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-inst-nav next" id="btnInstNext"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="mejor-opcion-seccion">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto" style="color:var(--blanco);">¿Por qué somos tu mejor opción?</h2>
+            <div class="subtitulo-seccion-linea" style="background-color: var(--naranja-corporativo);"></div>
+            <div class="grid-mejor-opcion">
+                <div class="box-opcion">
+                    <div class="numero-gigante">100%</div>
+                    <h3>Práctico e Inmersivo</h3>
+                    <p>Metodología basada en simulación interactiva de campo eliminando el exceso de teoría tradicional.</p>
+                </div>
+                <div class="box-opcion">
+                    <div class="numero-gigante">+9</div>
+                    <h3>Años Formando Líderes</h3>
+                    <p>Nuestra experiencia e infraestructura validada por el mercado garantizan tu inserción laboral.</p>
+                </div>
+                <div class="box-opcion">
+                    <div class="numero-gigante">01</div>
+                    <h3>Laboratorio Exclusivo</h3>
+                    <p>Contamos con el único entorno simulado del país con licencias de software logístico vigentes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="alianzas-seccion">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto">Nuestras Alianzas Estratégicas</h2>
+            <div class="subtitulo-seccion-linea"></div>
+            
+            <div class="grid-botones-alianzas">
+                <div class="boton-cuadro-alianza active" onclick="cambiarPestañaAlianza('universitarias', this)">
+                    <h3>Universitarias</h3>
+                </div>
+                <div class="boton-cuadro-alianza" onclick="cambiarPestañaAlianza('tecnologicas', this)">
+                    <h3>Tecnológicas</h3>
+                </div>
+                <div class="boton-cuadro-alianza" onclick="cambiarPestañaAlianza('empresariales', this)">
+                    <h3>Empresariales</h3>
+                </div>
+            </div>
+
+            <div class="despliegue-carruseles-alianzas">
+                
+                <div class="bloque-bucle-logos active" id="alianza-universitarias">
+                    <div class="track-infinito-logos" style="animation-duration: 14s;">
+                        <div class="item-logo-alianza">Universidad Ref A</div>
+                        <div class="item-logo-alianza">Inst. Logístico</div>
+                        <div class="item-logo-alianza">Universidad Ref B</div>
+                        <div class="item-logo-alianza">Campus Global</div>
+                        <div class="item-logo-alianza">Universidad Ref A</div>
+                        <div class="item-logo-alianza">Inst. Logístico</div>
+                        <div class="item-logo-alianza">Universidad Ref B</div>
+                        <div class="item-logo-alianza">Campus Global</div>
+                    </div>
+                </div>
+
+                <div class="bloque-bucle-logos" id="alianza-tecnologicas">
+                    <div class="track-infinito-logos" style="animation-duration: 12s;">
+                        <div class="item-logo-alianza">ERP Premium Partner</div>
+                        <div class="item-logo-alianza">WMS Global System</div>
+                        <div class="item-logo-alianza">Tech Supply Logic</div>
+                        <div class="item-logo-alianza">Tracking Cargo OS</div>
+                        <div class="item-logo-alianza">ERP Premium Partner</div>
+                        <div class="item-logo-alianza">WMS Global System</div>
+                        <div class="item-logo-alianza">Tech Supply Logic</div>
+                        <div class="item-logo-alianza">Tracking Cargo OS</div>
+                    </div>
+                </div>
+
+                <div class="bloque-bucle-logos" id="alianza-empresariales">
+                    <div class="track-infinito-logos" style="animation-duration: 16s;">
+                        <div class="item-logo-alianza">Operador Logístico A</div>
+                        <div class="item-logo-alianza">Agencia Aduanera B</div>
+                        <div class="item-logo-alianza">Depósito Temporal C</div>
+                        <div class="item-logo-alianza">Puerto Callao Ref</div>
+                        <div class="item-logo-alianza">Operador Logístico A</div>
+                        <div class="item-logo-alianza">Agencia Aduanera B</div>
+                        <div class="item-logo-alianza">Depósito Temporal C</div>
+                        <div class="item-logo-alianza">Puerto Callao Ref</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="comunidad-seccion">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto">Nuestra Comunidad Opina</h2>
+            <div class="subtitulo-seccion-linea"></div>
+            
+            <div class="grid-cuatro-testimonios">
+                <div class="tarjeta-testimonio-columna">
+                    <div class="contenedor-video-columna">
+                        <i class="fa-solid fa-play-circle"></i>
+                        <img src="https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?q=80&w=300" class="capa-imagen-video" alt="Egresada">
+                    </div>
+                    <div class="info-texto-columna">
+                        <h3>Karla Villalobos</h3>
+                        <span class="tag-programa-egresado">Gestión Aduanera</span>
+                        <p>"El uso de los sistemas reales en el laboratorio me permitió adaptarme al puesto desde el primer día."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-testimonio-columna">
+                    <div class="contenedor-video-columna">
+                        <i class="fa-solid fa-play-circle"></i>
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=300" class="capa-imagen-video" alt="Egresado">
+                    </div>
+                    <div class="info-texto-columna">
+                        <h3>Miguel Ángel Paz</h3>
+                        <span class="tag-programa-egresado">Almacenes y CD</span>
+                        <p>"La dinámica de Roleplay me ayudó a entender cómo solucionar problemas complejos bajo presión."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-testimonio-columna">
+                    <div class="contenedor-video-columna">
+                        <i class="fa-solid fa-play-circle"></i>
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300" class="capa-imagen-video" alt="Egresada">
+                    </div>
+                    <div class="info-texto-columna">
+                        <h3>Gisela Fuentes</h3>
+                        <span class="tag-programa-egresado">Comercio Exterior</span>
+                        <p>"Los webinars gratuitos me trajeron aquí y certificarme de forma modular impulsó mi perfil técnico."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-testimonio-columna">
+                    <div class="contenedor-video-columna">
+                        <i class="fa-solid fa-play-circle"></i>
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300" class="capa-imagen-video" alt="Egresado">
+                    </div>
+                    <div class="info-texto-columna">
+                        <h3>Ricardo San Román</h3>
+                        <span class="tag-programa-egresado">Lean Logistics</span>
+                        <p>"Aprender de gerentes que operan el mercado actual te da las herramientas clave para sobresalir."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contenedor footer-grid">
+            <div>
+                <div class="imagotipo" style="margin-bottom: 20px;">
+                    <div class="isotipo-cubo" style="border-color: var(--blanco); background: transparent;"></div>
+                    <div class="logotipo-texto" style="color: var(--blanco);">cetlog</div>
+                </div>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.5;">El primer laboratorio de entrenamiento logístico técnico del Perú. Domina tu puesto hoy.</p>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 15px;">www.cetlog.com.pe</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="programas.html">Programas</a></li>
+                    <li><a href="metodologia.html">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="mailto:informes@cetlog.com.pe"><i class="fa-solid fa-envelope"></i> informes@cetlog.com.pe</a></li>
+                    <li><a href="tel:+51908883693"><i class="fa-solid fa-phone"></i> 908 883 693 / 997 181 605</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- CONTROL DE PESTAÑAS DE ALIANZAS ---
+        function cambiarPestañaAlianza(idAlianza, botonPulsado) {
+            const botones = document.querySelectorAll('.boton-cuadro-alianza');
+            botones.forEach(btn => btn.classList.remove('active'));
+            botonPulsado.classList.add('active');
+
+            const bloques = document.querySelectorAll('.bloque-bucle-logos');
+            bloques.forEach(bloque => bloque.classList.remove('active'));
+
+            const bloqueObjetivo = document.getElementById('alianza-' + idAlianza);
+            bloqueObjetivo.classList.add('active');
+        }
+
+        // --- CONTROL DEL BANNER SLIDER PRINCIPAL ---
+        let slideActualProg = 0;
+        const sliderProgramasWrapper = document.getElementById('sliderProgramasWrapper');
+        const puntosSliderProg = document.querySelectorAll('.slide-dot');
+
+        function irAlSlideProgramas(numSlide) {
+            slideActualProg = numSlide;
+            sliderProgramasWrapper.style.transform = `translateX(-${numSlide * 33.333}%)`;
+            puntosSliderProg.forEach(p => p.classList.remove('active'));
+            puntosSliderProg[numSlide].classList.add('active');
+        }
+
+        setInterval(() => {
+            slideActualProg = (slideActualProg + 1) % 3;
+            irAlSlideProgramas(slideActualProg);
+        }, 7000);
+
+        // --- FILTRADO DE TARJETAS DE PROGRAMAS ---
+        function filtrarCategoria(categoria, botonSeleccionado) {
+            const botones = document.querySelectorAll('.cuadro-filtro');
+            botones.forEach(btn => btn.classList.remove('active'));
+            botonSeleccionado.classList.add('active');
+
+            const tarjetas = document.querySelectorAll('.tarjeta-programa-filtro');
+            tarjetas.forEach(tarjeta => {
+                const catTarjeta = tarjeta.getAttribute('data-categoria');
+                if (categoria === 'todos' || catTarjeta === categoria) {
+                    tarjeta.style.display = 'flex';
+                } else {
+                    tarjeta.style.display = 'none';
+                }
+            });
+        }
+
+        // --- CARRUSEL INTERACTIVO DE INSTRUCTORES ---
+        const instructoresTrack = document.getElementById('instructoresTrack');
+        const btnInstPrev = document.getElementById('btnInstPrev');
+        const btnInstNext = document.getElementById('btnInstNext');
+        
+        let indexInstructor = 0;
+
+        function calcularAnchoDesplazamientoInst() {
+            const tarjetaInst = document.querySelector('.tarjeta-instructor');
+            return tarjetaInst.offsetWidth + 25;
+        }
+
+        btnInstNext.addEventListener('click', () => {
+            let visibles = 4;
+            if (window.innerWidth <= 1100) visibles = 3;
+            if (window.innerWidth <= 900) visibles = 2;
+            
+            const maxIndexInst = 10 - visibles; 
+
+            if (indexInstructor < maxIndexInst) {
+                indexInstructor++;
+                const desplazar = indexInstructor * calcularAnchoDesplazamientoInst();
+                instructoresTrack.style.transform = `translateX(-${desplazar}px)`;
+            }
+        });
+
+        btnInstPrev.addEventListener('click', () => {
+            if (indexInstructor > 0) {
+                indexInstructor--;
+                const desplazar = indexInstructor * calcularAnchoDesplazamientoInst();
+                instructoresTrack.style.transform = `translateX(-${desplazar}px)`;
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                const desplazar = indexInstructor * calcularAnchoDesplazamientoInst();
+                instructoresTrack.style.transform = `translateX(-${desplazar}px)`;
+            } else {
+                instructoresTrack.style.transform = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

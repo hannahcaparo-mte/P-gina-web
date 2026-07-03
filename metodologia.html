@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodología de Aprendizaje - CETLOG</title>
+    <meta name="description" content="Conoce la metodología práctica de CETLOG: aprendizaje modular, simulaciones reales y laboratorios logísticos que preparan para el mercado laboral.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- 1. VARIABLES DE MARCA Y CONFIGURACIÓN BASE --- */
+        :root {
+            --azul-corporativo: #00174D;  
+            --naranja-corporativo: #F17900; 
+            --gris-secundario: #E6E6E6;     
+            --blanco: #FFFFFF;
+            --texto-oscuro: #1A202C;
+            --fondo-ligero: #F9FAFB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco);
+            color: var(--texto-oscuro);
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn-principal {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-principal:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(241, 121, 0, 0.3);
+        }
+
+        .titulo-seccion-texto {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitulo-seccion-linea {
+            width: 80px;
+            height: 4px;
+            background-color: var(--naranja-corporativo);
+            margin: 0 auto 50px auto;
+        }
+
+        /* --- HEADER Y MENÚ --- */
+        header {
+            background-color: var(--blanco);
+            border-bottom: 2px solid var(--gris-secundario);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .imagotipo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .isotipo-cubo {
+            width: 35px;
+            height: 35px;
+            background-color: var(--blanco);
+            border: 3px solid var(--azul-corporativo);
+            position: relative;
+            box-shadow: -6px 6px 0px var(--naranja-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .isotipo-cubo::after {
+            content: "c";
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            font-size: 1.2rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .logotipo-texto {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--azul-corporativo);
+            letter-spacing: -1px;
+            text-transform: lowercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--azul-corporativo);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--naranja-corporativo);
+        }
+
+        /* ==========================================================================
+           ESTILOS SECCIÓN METODOLOGÍA DE APRENDIZAJE
+           ========================================================================== */
+        
+        /* 1. Banner Principal */
+        .banner-metodologia {
+            background: linear-gradient(135deg, var(--azul-corporativo) 0%, #000c29 100%);
+            color: var(--blanco);
+            padding: 90px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .tag-banner-met {
+            display: inline-block;
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 6px 14px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            border-radius: 2px;
+        }
+
+        .banner-metodologia h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        /* 2. Introducción Resumen */
+        .intro-cetlog-seccion {
+            padding: 60px 0;
+            background-color: var(--blanco);
+            text-align: center;
+        }
+
+        .texto-resumen-cetlog {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #4A5568;
+            max-width: 850px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+
+        /* 3. Cuadros Destacados Metodología */
+        .cuadros-pilares-seccion {
+            padding: 20px 0 60px 0;
+            background-color: var(--blanco);
+        }
+
+        .grid-pilares-cuadros {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .caja-pilar-metodologia {
+            background-color: var(--fondo-ligero);
+            border: 1px solid var(--gris-secundario);
+            border-bottom: 4px solid var(--azul-corporativo);
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .caja-pilar-metodologia:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--naranja-corporativo);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .caja-pilar-metodologia i {
+            font-size: 1.8rem;
+            color: var(--naranja-corporativo);
+        }
+
+        .caja-pilar-metodologia h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+
+        /* 4. Enfoques Principales */
+        .enfoques-seccion {
+            padding: 80px 0;
+            background-color: var(--fondo-ligero);
+        }
+
+        .grid-enfoques-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .tarjeta-enfoque-item {
+            background-color: var(--blanco);
+            padding: 35px 25px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-top: 4px solid var(--azul-corporativo);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tarjeta-enfoque-item:hover {
+            transform: translateY(-5px);
+            border-top-color: var(--naranja-corporativo);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+        }
+
+        .icono-enfoque-superior {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 23, 77, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .tarjeta-enfoque-item:hover .icono-enfoque-superior {
+            background-color: var(--naranja-corporativo);
+        }
+
+        .icono-enfoque-superior i {
+            font-size: 1.5rem;
+            color: var(--azul-corporativo);
+            transition: color 0.3s ease;
+        }
+
+        .tarjeta-enfoque-item:hover .icono-enfoque-superior i {
+            color: var(--blanco);
+        }
+
+        .tarjeta-enfoque-item h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .tarjeta-enfoque-item p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* [NUEVA] 4.5 Sección de Fotos de la Metodología */
+        .galeria-metodologia-seccion {
+            padding: 80px 0;
+            background-color: var(--blanco);
+        }
+
+        .grid-galeria-fotos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .item-foto-galeria {
+            background-color: var(--fondo-ligero);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--gris-secundario);
+        }
+
+        .contenedor-img-placeholder {
+            width: 100%;
+            height: 220px;
+            background-color: #dee2e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            gap: 10px;
+            position: relative;
+        }
+
+        .contenedor-img-placeholder i {
+            font-size: 2.5rem;
+            color: #bdc3c7;
+        }
+
+        /* Si se usan imágenes reales, esta clase las adaptará perfectamente */
+        .contenedor-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .pie-foto-galeria {
+            padding: 15px 20px;
+            background-color: var(--blanco);
+        }
+
+        .pie-foto-galeria h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .pie-foto-galeria p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* 5. Modelo de Entrenamiento Línea de Tiempo */
+        .modelo-entrenamiento-seccion {
+            padding: 90px 0;
+            background-color: var(--fondo-ligero);
+        }
+
+        .timeline-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 60px;
+            padding: 0 10px;
+        }
+
+        .timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--gris-secundario);
+            z-index: 1;
+        }
+
+        .timeline-paso {
+            position: relative;
+            z-index: 2;
+            width: calc(100% / 5);
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .nodo-circulo {
+            width: 70px;
+            height: 70px;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            font-size: 1.4rem;
+            font-weight: 800;
+            border: 4px solid var(--blanco);
+            box-shadow: 0 0 0 3px var(--azul-corporativo);
+            transition: all 0.3s;
+        }
+
+        .timeline-paso:hover .nodo-circulo {
+            background-color: var(--naranja-corporativo);
+            box-shadow: 0 0 0 3px var(--naranja-corporativo);
+            transform: scale(1.08);
+        }
+
+        .timeline-paso h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+        }
+
+        .timeline-paso p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* 6. Banner Delgado Inferior */
+        .banner-delgado-accion {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .wrap-delgado {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .wrap-delgado h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-blanco-line {
+            background-color: transparent;
+            color: var(--blanco);
+            border: 2px solid var(--blanco);
+            padding: 10px 22px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-blanco-line:hover {
+            background-color: var(--blanco);
+            color: var(--naranja-corporativo);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0b1326;
+            color: rgba(255,255,255,0.5);
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 3px solid var(--naranja-corporativo);
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN (MÓVIL Y TABLETAS)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .grid-pilares-cuadros { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .grid-pilares-cuadros .caja-pilar-metodologia:last-child { grid-column: span 2; }
+            .grid-enfoques-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-galeria-fotos { grid-template-columns: repeat(2, 1fr); }
+            
+            .timeline-wrapper { flex-direction: column; gap: 45px; }
+            .timeline-wrapper::before {
+                top: 0; left: 45px;
+                width: 4px; height: 100%;
+            }
+            .timeline-paso {
+                width: 100%;
+                display: flex;
+                text-align: left;
+                align-items: center;
+                padding: 0;
+            }
+            .nodo-circulo { margin: 0 25px 0 10px; flex-shrink: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .grid-pilares-cuadros { grid-template-columns: 1fr; }
+            .grid-pilares-cuadros .caja-pilar-metodologia:last-child { grid-column: span 1; }
+            .grid-enfoques-4 { grid-template-columns: 1fr; }
+            .grid-galeria-fotos { grid-template-columns: 1fr; }
+            .banner-metodologia h1 { font-size: 1.8rem; }
+            .wrap-delgado { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor header-wrap">
+            <a href="index.html" class="imagotipo" style="text-decoration:none;">
+                <div class="isotipo-cubo"></div>
+                <div class="logotipo-texto">cetlog</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="programas.html">Programas</a></li>
+                    <li><a href="metodologia.html" class="active">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
+        </div>
+    </header>
+
+    <main>
+        
+        <section class="banner-metodologia">
+            <div class="contenedor">
+                <span class="tag-banner-met">+9 Años de Innovación Logística</span>
+                <h1>Metodología de Aprendizaje</h1>
+            </div>
+        </section>
+
+        <section class="intro-cetlog-seccion">
+            <div class="contenedor">
+                <p class="texto-resumen-cetlog">
+                    CETLOG es el primer centro avanzado de entrenamiento técnico en logística del Perú. Nos enfocamos en transformar el conocimiento teórico en habilidades operativas reales, garantizando que cada estudiante domine las herramientas y flujos de campo requeridos por las mejores empresas del sector.
+                </p>
+            </div>
+        </section>
+
+        <section class="cuadros-pilares-seccion">
+            <div class="contenedor">
+                <div class="grid-pilares-cuadros">
+                    
+                    <div class="caja-pilar-metodologia">
+                        <i class="fa-solid fa-people-arrows"></i>
+                        <h3>Metodología Role Play</h3>
+                    </div>
+
+                    <div class="caja-pilar-metodologia">
+                        <i class="fa-solid fa-vr-cardboard"></i>
+                        <h3>Experiencias Inmersivas</h3>
+                    </div>
+
+                    <div class="caja-pilar-metodologia">
+                        <i class="fa-solid fa-route"></i>
+                        <h3>Visitas Técnicas</h3>
+                    </div>
+
+                    <div class="caja-pilar-metodologia">
+                        <i class="fa-solid fa-graduationcap"></i>
+                        <h3>Board Académico de Excelencia</h3>
+                    </div>
+
+                    <div class="caja-pilar-metodologia">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <h3>Software Real WMS/SCI</h3>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="enfoques-seccion">
+            <div class="contenedor">
+                <h2 class="titulo-seccion-texto">Nuestros Enfoques Principales</h2>
+                <div class="subtitulo-seccion-linea"></div>
+                
+                <div class="grid-enfoques-4">
+                    
+                    <div class="tarjeta-enfoque-item">
+                        <div class="icono-enfoque-superior">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <h3>Técnico</h3>
+                        <p>Desarrollo y perfeccionamiento de habilidades técnicas específicas y normativas clave exigidas en el ecosistema logístico actual.</p>
+                    </div>
+
+                    <div class="tarjeta-enfoque-item">
+                        <div class="icono-enfoque-superior">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <h3>Práctico</h3>
+                        <p>Aplicación directa y constante de los conocimientos adquiridos a través del análisis y resolución de casos de negocio reales.</p>
+                    </div>
+
+                    <div class="tarjeta-enfoque-item">
+                        <div class="icono-enfoque-superior">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3>Lúdico</h3>
+                        <p>Estrategias de gamificación diseñadas para asimilar conceptos complejos de forma dinámica, interactiva y de alta retención.</p>
+                    </div>
+
+                    <div class="tarjeta-enfoque-item">
+                        <div class="icono-enfoque-superior">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3>Vivencial</h3>
+                        <p>Experiencias inmersivas totales simulando roles y tensiones del día a día operativo mediante dinámicas dirigidas de Role Play.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <section class="modelo-entrenamiento-seccion">
+            <div class="contenedor">
+                <h2 class="titulo-seccion-texto">Nuestro Modelo de Entrenamiento</h2>
+                <div class="subtitulo-seccion-linea"></div>
+
+                <div class="timeline-wrapper">
+                    
+                    <div class="timeline-paso">
+                        <div class="nodo-circulo">1</div>
+                        <div>
+                            <h3>Explica</h3>
+                            <p>El instructor experto expone detalladamente los fundamentos y las técnicas operativas paso a paso.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso">
+                        <div class="nodo-circulo">2</div>
+                        <div>
+                            <h3>Demuestra</h3>
+                            <p>Demostración práctica en tiempo real de las técnicas y uso de herramientas dentro de los sistemas.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso">
+                        <div class="nodo-circulo">3</div>
+                        <div>
+                            <h3>Observa</h3>
+                            <p>Monitoreo y supervisión directa de la ejecución del proceso realizado individualmente por el entrenado.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso">
+                        <div class="nodo-circulo">4</div>
+                        <div>
+                            <h3>Retroalimenta</h3>
+                            <p>Feedback personalizado e inmediato identificando puntos críticos clave para asegurar la mejora continua.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso">
+                        <div class="nodo-circulo">5</div>
+                        <div>
+                            <h3>Certifica</h3>
+                            <p>Validación formal y oficial del nivel de destreza operativa y técnica que has alcanzado con éxito.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="banner-delgado-accion">
+            <div class="contenedor wrap-delgado">
+                <h2>Descubre nuestros programas para ti</h2>
+                <a href="programas.html" class="btn-blanco-line">Ver Catálogo Completo</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="contenedor">
+            <p style="margin-bottom: 12px;">
+                <a href="index.html">Inicio</a> &nbsp;·&nbsp;
+                <a href="programas.html">Programas</a> &nbsp;·&nbsp;
+                <a href="nosotros.html">Nosotros</a> &nbsp;·&nbsp;
+                <a href="mailto:informes@cetlog.com.pe">informes@cetlog.com.pe</a>
+            </p>
+            <p>&copy; 2026 CETLOG - Centro de Entrenamiento Técnico en Logística. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

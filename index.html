@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CETLOG - Centro de Entrenamiento Técnico en Logística</title>
+    <meta name="description" content="CETLOG es el primer laboratorio de entrenamiento logístico técnico del Perú. Fórmate en comercio exterior, aduanas y operaciones logísticas con simulaciones reales.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- 1. VARIABLES DE MARCA --- */
+        :root {
+            --azul-corporativo: #00174D;  
+            --naranja-corporativo: #F17900; 
+            --gris-secundario: #E6E6E6;     
+            --blanco: #FFFFFF;
+            --texto-oscuro: #1A202C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco);
+            color: var(--texto-oscuro);
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn-principal {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-principal:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(241, 121, 0, 0.3);
+        }
+
+        .titulo-seccion-texto {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitulo-seccion-linea {
+            width: 80px;
+            height: 4px;
+            background-color: var(--naranja-corporativo);
+            margin: 0 auto 50px auto;
+        }
+
+        /* --- HEADER Y MENÚ --- */
+        header {
+            background-color: var(--blanco);
+            border-bottom: 2px solid var(--gris-secundario);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .imagotipo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .isotipo-cubo {
+            width: 35px;
+            height: 35px;
+            background-color: var(--blanco);
+            border: 3px solid var(--azul-corporativo);
+            position: relative;
+            box-shadow: -6px 6px 0px var(--naranja-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .isotipo-cubo::after {
+            content: "c";
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            font-size: 1.2rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .logotipo-texto {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--azul-corporativo);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--azul-corporativo);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        /* --- 1. SLIDER DE BANNERS INTERACTIVO --- */
+        .hero-slider-container {
+            position: relative;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            overflow: hidden;
+            height: 550px;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            width: 300%; /* 3 Banners */
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .banner-slide {
+            width: 33.333%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Slide 1: Especial para Video */
+        .slide-video-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #0b1a3a;
+            z-index: 1;
+        }
+        .slide-video-bg video {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .video-overlay-capa {
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: linear-gradient(90deg, rgba(0,23,77,0.95) 40%, rgba(0,23,77,0.6) 100%);
+            z-index: 2;
+        }
+
+        /* Contenido común sobre los banners */
+        .banner-content {
+            position: relative;
+            z-index: 3;
+            max-width: 650px;
+            padding: 0 20px;
+        }
+
+        .tag-banner {
+            display: inline-block;
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 6px 14px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            border-radius: 2px;
+        }
+
+        .titulo-banner-grande {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .texto-banner-corto {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Controles del Slider */
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slide-dot.active {
+            background-color: var(--naranja-corporativo);
+            width: 35px;
+            border-radius: 6px;
+        }
+
+        /* --- 2. CARRUSEL DE PROGRAMAS INTERACTIVO --- */
+        .programas-seccion {
+            padding: 90px 0;
+            background-color: var(--gris-secundario);
+        }
+
+        .carrusel-contenedor-externo {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .carrusel-ventana {
+            width: 100%;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .carrusel-track {
+            display: flex;
+            gap: 30px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .tarjeta-programa {
+            background-color: var(--blanco);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            /* Ancho dinámico para que entren exactamente 3 por pantalla en pantallas grandes */
+            width: calc((100% - 60px) / 3); 
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tarjeta-programa:hover {
+            transform: translateY(-5px);
+            border-bottom: 4px solid var(--azul-corporativo);
+        }
+
+        .programa-imagen-mini {
+            height: 180px;
+            background-color: #00174d33;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--azul-corporativo);
+            font-size: 2.5rem;
+        }
+
+        .programa-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .nombre-programa-real {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            line-height: 1.4;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            min-height: 50px; 
+        }
+
+        /* Botones de Navegación del Carrusel */
+        .btn-carrusel-nav {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 5;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+        }
+        .btn-carrusel-nav:hover {
+            background-color: var(--naranja-corporativo);
+        }
+        .btn-carrusel-nav.prev { left: -25px; }
+        .btn-carrusel-nav.next { right: -25px; }
+
+        /* --- 3. SECCIÓN ¿POR QUÉ ESTUDIAR EN CETLOG? (ESTRUCTURA NUEVA CON SLIDER INTERNAL) --- */
+        .porque-estudiar {
+            padding: 90px 0;
+            background-color: var(--blanco);
+        }
+
+        .porque-layout-split {
+            display: grid;
+            grid-template-columns: 350px 1fr; /* Columna izquierda de la imagen controlada (no tan ancha) y la derecha toma el resto */
+            gap: 40px;
+            align-items: start;
+        }
+
+        .columna-imagen-fija {
+            width: 100%;
+            height: 420px;
+            background-color: var(--gris-secundario);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gris-secundario);
+        }
+
+        .columna-imagen-fija img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .columna-razones-slider {
+            position: relative;
+            overflow: hidden;
+            height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .razones-ventana {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .razones-track {
+            display: flex;
+            width: 200%; /* 2 bloques de razones (4 y 4) */
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .bloque-razones {
+            width: 50%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 4 razones estructuradas en rejilla de 2x2 */
+            gap: 20px;
+        }
+
+        .item-porque {
+            display: flex;
+            gap: 15px;
+            background-color: #fcfcfc;
+            padding: 20px;
+            border-radius: 6px;
+            border-top: 3px solid var(--gris-secundario);
+            transition: border-color 0.3s;
+        }
+        .item-porque:hover {
+            border-color: var(--naranja-corporativo);
+        }
+
+        .icono-cuadrado {
+            width: 50px;
+            height: 50px;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            border-radius: 4px;
+            flex-shrink: 0;
+            border-bottom: 4px solid var(--naranja-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contenido-porque h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            margin-bottom: 6px;
+        }
+
+        .contenido-porque p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Controles específicos del deslizador de razones */
+        .razones-navegacion {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-deslizar-razon {
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-deslizar-razon:hover {
+            background-color: var(--naranja-corporativo);
+        }
+
+        .indicador-paginado-razon {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--azul-corporativo);
+            letter-spacing: 1px;
+        }
+
+        /* --- 4. MODALIDADES DE ESTUDIO --- */
+        .modalidades {
+            padding: 80px 0;
+            background-color: var(--azul-corporativo);
+            color: var(--blanco);
+        }
+
+        .grid-modalidades {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .caja-modalidad {
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 40px 25px;
+            border-radius: 6px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        .caja-modalidad:hover {
+            border-color: var(--naranja-corporativo);
+            background-color: rgba(255,255,255,0.07);
+            transform: translateY(-5px);
+        }
+
+        .caja-modalidad i {
+            font-size: 2.5rem;
+            color: var(--naranja-corporativo);
+            margin-bottom: 20px;
+        }
+
+        .caja-modalidad h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .caja-modalidad p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+        }
+
+        /* --- 5. BENEFICIOS DE SER UN ENTRENADO --- */
+        .beneficios {
+            padding: 90px 0;
+            background-color: var(--gris-secundario);
+        }
+
+        .grid-beneficios {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .tarjeta-beneficio {
+            background-color: var(--blanco);
+            padding: 25px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-left: 5px solid var(--naranja-corporativo);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .tarjeta-beneficio i {
+            font-size: 1.5rem;
+            color: var(--azul-corporativo);
+            flex-shrink: 0;
+        }
+
+        .tarjeta-beneficio p {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--texto-oscuro);
+            line-height: 1.4;
+        }
+
+        /* --- 6. LABORATORIO LOGÍSTICO --- */
+        .laboratorio {
+            padding: 90px 0;
+            background-color: var(--blanco);
+        }
+
+        .lab-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .lab-visual {
+            height: 360px;
+            background-color: var(--gris-secundario);
+            border-radius: 6px;
+            border: 3px dashed var(--azul-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: rgba(0,0,0,0.4);
+            letter-spacing: 1px;
+        }
+
+        /* --- 7. TIRA FINAL EXCLUSIVA (CAMBIO SOLICITADO) --- */
+        .tira-final-podcast {
+            background-color: var(--naranja-corporativo);
+            color: var(--blanco);
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tira-final-podcast .isotipo-cubo-blanco {
+            width: 32px;
+            height: 32px;
+            background-color: transparent;
+            border: 3px solid var(--blanco);
+            position: relative;
+            box-shadow: -5px 5px 0px var(--azul-corporativo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tira-final-podcast .isotipo-cubo-blanco::after {
+            content: "c";
+            font-weight: 900;
+            color: var(--blanco);
+            font-size: 1.1rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .texto-tira-podcast {
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .texto-tira-podcast i {
+            font-size: 1.4rem;
+        }
+
+        /* --- 8. FOOTER --- */
+        footer {
+            background-color: #000F33;
+            color: var(--blanco);
+            padding: 60px 0;
+            border-top: 4px solid var(--naranja-corporativo);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        .footer-col h4 {
+            color: var(--naranja-corporativo);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        /* --- RESPONSIVE CONTROL --- */
+        @media (max-width: 992px) {
+            .porque-layout-split { grid-template-columns: 1fr; }
+            .columna-imagen-fija { height: 280px; }
+            .grid-modalidades { grid-template-columns: repeat(2, 1fr); }
+            .tarjeta-programa { width: calc((100% - 30px) / 2); }
+            .bloque-razones { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .hero-grid, .grid-modalidades, .grid-beneficios, .lab-layout, .footer-grid { grid-template-columns: 1fr; }
+            .tarjeta-programa { width: 100%; }
+            nav { display: none; }
+            .titulo-banner-grande { font-size: 2rem; }
+            .hero-slider-container { height: 480px; }
+            .btn-carrusel-nav { display: none; }
+            .texto-tira-podcast { font-size: 0.85rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor header-wrap">
+            <a href="index.html" class="imagotipo" style="text-decoration:none;">
+                <div class="isotipo-cubo"></div>
+                <div class="logotipo-texto">cetlog</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Inicio</a></li>
+                    <li><a href="programas.html">Programas</a></li>
+                    <li><a href="metodologia.html">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
+        </div>
+    </header>
+
+    <section class="hero-slider-container">
+        <div class="slide-wrapper" id="heroWrapper">
+            
+            <div class="banner-slide">
+                <div class="slide-video-bg"></div>
+                <div class="video-overlay-capa"></div>
+                <div class="contenedor" style="position:relative; z-index:5; width:100%;">
+                    <div class="banner-content">
+                        <span class="tag-banner">Vídeo Institucional</span>
+                        <h1 class="titulo-banner-grande">El Primer Laboratorio Logístico del Perú</h1>
+                        <div class="texto-banner-corto">Domina las funciones de tu próximo puesto laboral con simulaciones inmersivas y entrenamiento de campo real.</div>
+                        <button class="btn-principal">Ver Video Completo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="banner-slide" style="background: linear-gradient(135deg, #00174D 0%, #000c29 100%);">
+                <div class="contenedor" style="width:100%;">
+                    <div class="banner-content">
+                        <span class="tag-banner">Trayectoria Garantizada</span>
+                        <h1 class="titulo-banner-grande">+9 Años de Innovación Logística</h1>
+                        <div class="texto-banner-corto">Transformando la educación técnica a nivel nacional, combinando tecnología de vanguardia y experiencia empresarial.</div>
+                        <button class="btn-principal">Conoce Nuestra Historia</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="banner-slide" style="background: linear-gradient(135deg, #0d255c 0%, #00174D 100%);">
+                <div class="contenedor" style="width:100%;">
+                    <div class="banner-content">
+                        <span class="tag-banner">Admisión Abierta</span>
+                        <h1 class="titulo-banner-grande">Próximos Inicios de Programas</h1>
+                        <div class="texto-banner-corto">Separa tu vacante hoy mismo e impulsa tu perfil profesional en el sector de mayor demanda laboral del país.</div>
+                        <button class="btn-principal">Ver Calendario de Inicios</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="slider-controls">
+            <div class="slide-dot active" onclick="irAlSlide(0)"></div>
+            <div class="slide-dot" onclick="irAlSlide(1)"></div>
+            <div class="slide-dot" onclick="irAlSlide(2)"></div>
+        </div>
+    </section>
+
+    <section class="programas-seccion">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto">Nuestros Programas</h2>
+            <div class="subtitulo-seccion-linea"></div>
+            
+            <div class="carrusel-contenedor-externo">
+                <button class="btn-carrusel-nav prev" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+                
+                <div class="carrusel-ventana">
+                    <div class="carrusel-track" id="carruselTrack">
+                        
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-globe"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Analista de Comercio Exterior</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-chart-line"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Lean Logistics</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Sectorista de Aduana</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-ship"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Transporte de Carga Internacional</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-user-shield"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Programa Ejecutivo de Gestión Aduanera</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Gestión de Transporte y Distribución</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-warehouse"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Gestión de Almacenes y Centros de Distribución</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-programa">
+                            <div class="programa-imagen-mini"><i class="fa-solid fa-calculator"></i></div>
+                            <div class="programa-info">
+                                <h3 class="nombre-programa-real">Compras Estratégicas y Planeamiento de la Demanda</h3>
+                                <a href="programa-detalle.html" class="btn-principal" style="text-decoration:none; display:inline-block;">Ver Detalle</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button class="btn-carrusel-nav next" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="porque-estudiar">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto">¿Por qué estudiar en CETLOG?</h2>
+            <div class="subtitulo-seccion-linea"></div>
+            
+            <div class="porque-layout-split">
+                <div class="columna-imagen-fija">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600&auto=format&fit=crop" alt="Laboratorio de Operaciones CETLOG">
+                </div>
+
+                <div class="columna-razones-slider">
+                    <div class="razones-ventana">
+                        <div class="razones-track" id="razonesTrack">
+                            
+                            <div class="bloque-razones">
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-boxes-stacked"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Laboratorio a Escala</h3>
+                                        <p>Infraestructura diseñada para la manipulación y simulación real de procesos de flujo físico de mercancías.</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-laptop-code"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Acceso a tecnología real</h3>
+                                        <p>Capacitación avanzada utilizando las herramientas y licencias del entorno de un software logístico real.</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-people-arrows"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Metodología ROLEPLAY</h3>
+                                        <p>Toma el control ocupando roles operativos clave bajo escenarios de alta presión y resolución de crisis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-user-tie"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Instructores con amplia experiencia</h3>
+                                        <p>Aprende directamente de ejecutivos y gerentes que lideran operaciones logísticas en el mercado actual.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bloque-razones">
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-diagram-project"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Proyectos con casos reales</h3>
+                                        <p>Desarrolla soluciones aplicables a problemas de empresas reales, integrando toda la cadena de suministro.</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-bus"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Visitas técnicas programadas</h3>
+                                        <p>Inmersión de campo guiada a los terminales de almacenamiento y centros de distribución más importantes.</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-network-wired"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Networking del sector</h3>
+                                        <p>Conéctate y expande de forma directa tus relaciones con la red técnica especializada de logística en el Perú.</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-porque">
+                                    <div class="icono-cuadrado"><i class="fa-solid fa-certificate"></i></div>
+                                    <div class="contenido-porque">
+                                        <h3>Certificación Modular</h3>
+                                        <p>Valida tus competencias técnicas adquiridas de forma progresiva a lo largo de cada laboratorio de entrenamiento.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="razones-navegacion">
+                        <button class="btn-deslizar-razon" id="btnRazonPrev"><i class="fa-solid fa-arrow-left"></i></button>
+                        <span class="indicador-paginado-razon" id="indicadorRazon">PÁGINA 1 / 2</span>
+                        <button class="btn-deslizar-razon" id="btnRazonNext"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="modalidades">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto" style="color:var(--blanco);">Modalidades de Estudio</h2>
+            <div class="subtitulo-seccion-linea" style="background-color: var(--naranja-corporativo);"></div>
+            <div class="grid-modalidades">
+                
+                <div class="caja-modalidad">
+                    <i class="fa-solid fa-desktop"></i>
+                    <h3>Virtual</h3>
+                    <p>Clases interactivas 100% online en vivo con acceso flexible a nuestro campus digital las 24 horas.</p>
+                </div>
+
+                <div class="caja-modalidad">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h3>Semi-Presencial</h3>
+                    <p>La combinación estratégica: teoría online avanzada y talleres prácticos en laboratorios físicos.</p>
+                </div>
+
+                <div class="caja-modalidad">
+                    <i class="fa-solid fa-building-user"></i>
+                    <h3>Presencial</h3>
+                    <p>Entrenamiento inmersivo total en nuestro centro tecnológico logístico especializado.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="beneficios">
+        <div class="contenedor">
+            <h2 class="titulo-seccion-texto">Beneficios de ser un Entrenado</h2>
+            <div class="subtitulo-seccion-linea"></div>
+            <div class="grid-beneficios">
+                
+                <div class="tarjeta-beneficio">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <p>Instructores con amplia experiencia en la gestión de carga y aduanas</p>
+                </div>
+
+                <div class="tarjeta-beneficio">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <p>Metodología única e innovadora de CETLOG</p>
+                </div>
+
+                <div class="tarjeta-beneficio">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <p>Proyectos de integración con casos reales</p>
+                </div>
+
+                <div class="tarjeta-beneficio">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <p>Amplía tu red de contactos profesional con el sector</p>
+                </div>
+
+                <div class="tarjeta-beneficio">
+                    <i class="fa-solid fa-route"></i>
+                    <p>Visitas técnicas programadas a empresas del sector</p>
+                </div>
+
+                <div class="tarjeta-beneficio">
+                    <i class="fa-solid fa-circle-nodes"></i>
+                    <p>Acceso a sistema real de gestión de carga y aduanas</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="laboratorio" id="laboratorio">
+        <div class="contenedor lab-layout">
+            <div class="lab-visual">
+                <i class="fa-solid fa-play-circle" style="font-size: 3.5rem; color: var(--azul-corporativo); cursor:pointer;"></i>
+                <span style="margin-left: 15px;">REPRODUCIR TOUR DEL LABORATORIO</span>
+            </div>
+            <div>
+                <h2 class="titulo-seccion-texto" style="text-align:left; margin-bottom:15px;">Conoce Nuestro Laboratorio Logístico</h2>
+                <p style="line-height: 1.6; color:#555; margin-bottom:25px;">CETLOG cuenta con el primer espacio de simulación física y digital del país enfocado en el entrenamiento logístico continuo. Experimenta los flujos reales de almacenamiento antes de salir al mercado laboral.</p>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--azul-corporativo); margin-bottom: 25px;"><i class="fa-solid fa-phone"></i> Central Telefónica: 908 883 693 / 997 181 605</p>
+                <button class="btn-principal">Agendar Visita Guiada</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="tira-final-podcast">
+        <div class="isotipo-cubo-blanco"></div>
+        <div class="texto-tira-podcast">
+            LABORATORIO LOGÍSTICO - PODCAST EN YOUTUBE <i class="fa-brands fa-youtube"></i>
+        </div>
+    </div>
+
+    <footer>
+        <div class="contenedor footer-grid">
+            <div>
+                <div class="imagotipo" style="margin-bottom: 20px;">
+                    <div class="isotipo-cubo" style="border-color: var(--blanco); background: transparent;"></div>
+                    <div class="logotipo-texto" style="color: var(--blanco);">cetlog</div>
+                </div>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.5;">El primer laboratorio de entrenamiento logístico técnico del Perú. Domina tu puesto hoy.</p>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 15px;">www.cetlog.com.pe</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="programas.html">Programas</a></li>
+                    <li><a href="metodologia.html">Metodología</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="mailto:informes@cetlog.com.pe"><i class="fa-solid fa-envelope"></i> informes@cetlog.com.pe</a></li>
+                    <li><a href="tel:+51908883693"><i class="fa-solid fa-phone"></i> 908 883 693 / 997 181 605</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- CONTROL DEL HERO SLIDER ---
+        let slideActual = 0;
+        const heroWrapper = document.getElementById('heroWrapper');
+        const puntosSlider = document.querySelectorAll('.slide-dot');
+
+        function irAlSlide(numSlide) {
+            slideActual = numSlide;
+            heroWrapper.style.transform = `translateX(-${numSlide * 33.333}%)`;
+            
+            // Actualizar puntos activos
+            puntosSlider.forEach(p => p.classList.remove('active'));
+            puntosSlider[numSlide].classList.add('active');
+        }
+
+        setInterval(() => {
+            slideActual = (slideActual + 1) % 3;
+            irAlSlide(slideActual);
+        }, 6000);
+
+
+        // --- CONTROL DEL CARRUSEL DE PROGRAMAS (Columnas de 3) ---
+        const carruselTrack = document.getElementById('carruselTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        let indexCarrusel = 0;
+
+        function obtenerAnchoDesplazamiento() {
+            const tarjeta = document.querySelector('.tarjeta-programa');
+            return tarjeta.offsetWidth + 30; 
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const maxIndex = document.querySelectorAll('.tarjeta-programa').length - (window.innerWidth <= 768 ? 1 : 3);
+            if (indexCarrusel < maxIndex) {
+                indexCarrusel++;
+                const desplazar = indexCarrusel * obtenerAnchoDesplazamiento();
+                carruselTrack.style.transform = `translateX(-${desplazar}px)`;
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (indexCarrusel > 0) {
+                indexCarrusel--;
+                const desplazar = indexCarrusel * obtenerAnchoDesplazamiento();
+                carruselTrack.style.transform = `translateX(-${desplazar}px)`;
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            const desplazar = indexCarrusel * obtenerAnchoDesplazamiento();
+            carruselTrack.style.transform = `translateX(-${desplazar}px)`;
+        });
+
+
+        // --- NUEVA LÓGICA: INTERACTIVIDAD DE RAZONES DE ESTUDIO (SLIDER INTERNO) ---
+        const razonesTrack = document.getElementById('razonesTrack');
+        const btnRazonPrev = document.getElementById('btnRazonPrev');
+        const btnRazonNext = document.getElementById('btnRazonNext');
+        const indicadorRazon = document.getElementById('indicadorRazon');
+        
+        let paginaRazonActual = 0; // 0 = Primeras 4, 1 = Siguientes 4
+
+        function actualizarSlideRazones() {
+            razonesTrack.style.transform = `translateX(-${paginaRazonActual * 50}%)`;
+            indicadorRazon.textContent = `PÁGINA ${paginaRazonActual + 1} / 2`;
+        }
+
+        btnRazonNext.addEventListener('click', () => {
+            if (paginaRazonActual < 1) {
+                paginaRazonActual++;
+                actualizarSlideRazones();
+            }
+        });
+
+        btnRazonPrev.addEventListener('click', () => {
+            if (paginaRazonActual > 0) {
+                paginaRazonActual--;
+                actualizarSlideRazones();
+            }
+        });
+    </script>
+</body>
+</html>
