@@ -133,7 +133,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 22px;
             align-items: center;
         }
 
@@ -141,20 +141,21 @@
             text-decoration: none;
             color: var(--azul-corporativo);
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             text-transform: uppercase;
             cursor: pointer;
             transition: color 0.2s;
             display: flex;
             align-items: center;
             gap: 5px;
+            white-space: nowrap;
         }
 
         nav ul li a:hover, nav ul li a.active {
             color: var(--naranja-corporativo);
         }
 
-        /* LÓGICA DEL DROPDOWN AL PASAR EL MOUSE */
+        /* LÓGICA DEL DROPDOWN AL PASAR EL MOUSE (ESCRITORIO) */
         .item-dropdown {
             position: relative;
             padding: 10px 0;
@@ -187,6 +188,7 @@
             width: 100%;
             border-bottom: 1px solid #f1f1f1;
             transition: background 0.2s, color 0.2s;
+            white-space: normal;
         }
 
         .menu-desplegable li a:hover {
@@ -632,6 +634,364 @@
             line-height: 1.4;
         }
 
+        /* Los 3 cuadros ahora son clickeables y abren una ventana emergente */
+        .columna-corporativa-box {
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .columna-corporativa-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0, 23, 77, 0.1);
+            border-color: var(--naranja-corporativo);
+        }
+
+        .ver-mas-columna {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--gris-secundario);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--naranja-corporativo);
+        }
+
+        .columna-corporativa-box:hover .ver-mas-columna {
+            gap: 12px;
+        }
+
+        .ver-mas-columna i {
+            transition: transform 0.25s ease;
+        }
+
+        .columna-corporativa-box:hover .ver-mas-columna i {
+            transform: translateX(4px);
+        }
+
+        /* ==========================================================================
+           VENTANAS EMERGENTES (MODALES) DE LOS 3 CUADROS
+           ========================================================================== */
+        .overlay-modal-cetlog {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 12, 41, 0.75);
+            z-index: 3000;
+            padding: 40px 20px;
+            overflow-y: auto;
+        }
+
+        .overlay-modal-cetlog.activo {
+            display: block;
+        }
+
+        body.modal-abierto {
+            overflow: hidden;
+        }
+
+        .caja-modal-cetlog {
+            background-color: var(--blanco);
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            animation: aparecerModal 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        @keyframes aparecerModal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cerrar-modal-cetlog {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--blanco);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+
+        .cerrar-modal-cetlog:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .modal-cetlog-banner {
+            position: relative;
+            padding: 55px 40px;
+            text-align: center;
+            color: var(--blanco);
+            background: linear-gradient(rgba(0, 23, 77, 0.88), rgba(0, 12, 41, 0.95));
+        }
+
+        .modal-mision .modal-cetlog-banner { background: linear-gradient(rgba(0, 23, 77, 0.88), rgba(0, 12, 41, 0.95)), url('https://images.unsplash.com/photo-1521737711867-e3b90473bd58?q=80&w=1200') center center / cover; }
+        .modal-hitos .modal-cetlog-banner { background: linear-gradient(rgba(0, 23, 77, 0.88), rgba(0, 12, 41, 0.95)), url('https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?q=80&w=1200') center center / cover; }
+        .modal-prensa .modal-cetlog-banner { background: linear-gradient(rgba(0, 23, 77, 0.88), rgba(0, 12, 41, 0.95)), url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1200') center center / cover; }
+
+        .modal-cetlog-banner .tag-modal {
+            display: inline-block;
+            background-color: var(--naranja-corporativo);
+            padding: 5px 14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            border-radius: 2px;
+        }
+
+        .modal-cetlog-banner h2 {
+            font-size: 2.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .modal-cetlog-banner p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .modal-cetlog-cuerpo {
+            padding: 40px;
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+
+        /* Contenido Misión y Visión dentro del modal */
+        .modal-grid-proposito {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .modal-tarjeta-proposito {
+            background-color: var(--fondo-ligero);
+            border: 1px solid var(--gris-secundario);
+            border-radius: 8px;
+            padding: 28px;
+        }
+
+        .modal-tarjeta-proposito .icono-proposito {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+        }
+
+        .modal-tarjeta-proposito.mision .icono-proposito { background-color: rgba(241, 121, 0, 0.1); color: var(--naranja-corporativo); }
+        .modal-tarjeta-proposito.vision .icono-proposito { background-color: rgba(0, 23, 77, 0.1); color: var(--azul-corporativo); }
+
+        .modal-tarjeta-proposito h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--azul-corporativo);
+            margin-bottom: 12px;
+        }
+
+        .modal-tarjeta-proposito p {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: #4A5568;
+        }
+
+        .modal-grid-esencia {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .modal-tarjeta-esencia {
+            background-color: var(--blanco);
+            border: 1px solid var(--gris-secundario);
+            border-radius: 6px;
+            padding: 22px 16px;
+            text-align: center;
+        }
+
+        .modal-tarjeta-esencia i {
+            font-size: 1.6rem;
+            color: var(--naranja-corporativo);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .modal-tarjeta-esencia h4 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .modal-tarjeta-esencia p {
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: #4A5568;
+        }
+
+        .modal-cetlog-cuerpo h3.subtitulo-modal {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Contenido Hitos dentro del modal (timeline vertical simple) */
+        .modal-timeline-hitos {
+            list-style: none;
+            position: relative;
+            padding-left: 26px;
+        }
+
+        .modal-timeline-hitos::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 6px;
+            width: 2px;
+            height: 96%;
+            background-color: var(--gris-secundario);
+        }
+
+        .modal-hito-li {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .modal-hito-li::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--naranja-corporativo);
+            border: 2px solid var(--blanco);
+            box-shadow: 0 0 0 2px var(--naranja-corporativo);
+        }
+
+        .modal-hito-li .fecha-modal-hito {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--naranja-corporativo);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .modal-hito-li h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            margin-bottom: 5px;
+        }
+
+        .modal-hito-li p {
+            font-size: 0.85rem;
+            color: #4A5568;
+            line-height: 1.55;
+        }
+
+        /* Contenido Prensa dentro del modal */
+        .modal-bloque-prensa {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--gris-secundario);
+        }
+
+        .modal-bloque-prensa:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .modal-bloque-prensa h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--azul-corporativo);
+            margin-bottom: 10px;
+        }
+
+        .modal-bloque-prensa h3 span {
+            color: var(--naranja-corporativo);
+        }
+
+        .modal-bloque-prensa p {
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: #4A5568;
+            margin-bottom: 10px;
+        }
+
+        .modal-grid-logos-medios {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .modal-caja-logo-medio {
+            background-color: var(--fondo-ligero);
+            border: 1px solid var(--gris-secundario);
+            border-radius: 6px;
+            padding: 16px 10px;
+            text-align: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #4A5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-caja-logo-medio i {
+            color: var(--naranja-corporativo);
+            margin-right: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-grid-proposito, .modal-grid-esencia, .modal-grid-logos-medios {
+                grid-template-columns: 1fr 1fr;
+            }
+            .modal-cetlog-cuerpo { padding: 25px; }
+            .modal-cetlog-banner { padding: 40px 25px; }
+            .modal-cetlog-banner h2 { font-size: 1.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .modal-grid-proposito, .modal-grid-esencia, .modal-grid-logos-medios {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ==========================================================================
            4. SECCIÓN AUTORIDADES (BOARD DIRECTIVO / DOCENTE)
            ========================================================================== */
@@ -733,6 +1093,140 @@
             .grid-autoridades { grid-template-columns: 1fr; }
             .reconocimiento-grid { flex-direction: column; gap: 20px; }
         }
+
+        /* ==========================================================================
+           NAVEGACIÓN RESPONSIVE (MENÚ HAMBURGUESA PARA TABLET Y CELULAR)
+           ========================================================================== */
+        .btn-menu-movil {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--azul-corporativo);
+            cursor: pointer;
+            padding: 6px 4px;
+            z-index: 1200;
+        }
+
+        .fondo-oscuro-movil {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 12, 41, 0.55);
+            z-index: 1050;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fondo-oscuro-movil.activo {
+            display: block;
+            opacity: 1;
+        }
+
+        body.menu-movil-abierto {
+            overflow: hidden;
+        }
+
+        @media (max-width: 1100px) and (min-width: 993px) {
+            nav ul { gap: 14px; }
+            nav ul li a { font-size: 0.76rem; }
+            .btn-principal { padding: 11px 18px; font-size: 0.75rem; }
+        }
+
+        @media (max-width: 992px) {
+            .header-wrap { height: 70px; }
+
+            .btn-menu-movil {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #cta-header-desktop {
+                display: none;
+            }
+
+            nav#nav-principal {
+                position: fixed;
+                top: 70px;
+                right: 0;
+                width: min(320px, 82vw);
+                height: calc(100vh - 70px);
+                background-color: var(--blanco);
+                box-shadow: -8px 0 30px rgba(0,0,0,0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 1100;
+                overflow-y: auto;
+            }
+
+            nav#nav-principal.nav-abierto {
+                transform: translateX(0);
+            }
+
+            nav#nav-principal ul {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0 30px 0;
+                width: 100%;
+            }
+
+            nav#nav-principal ul li {
+                width: 100%;
+                border-bottom: 1px solid var(--gris-secundario);
+            }
+
+            nav#nav-principal ul li a {
+                width: 100%;
+                padding: 16px 24px;
+                font-size: 0.85rem;
+                justify-content: space-between;
+                white-space: normal;
+            }
+
+            .item-dropdown {
+                padding: 0;
+            }
+
+            /* Dentro del menú móvil, el submenú se muestra siempre desplegado (no hover) */
+            .menu-desplegable {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                border-top: 1px solid var(--gris-secundario);
+                border-radius: 0;
+                background-color: var(--fondo-ligero);
+            }
+
+            .menu-desplegable li a {
+                padding-left: 40px;
+                font-size: 0.78rem;
+                border-bottom: 1px solid #eef0f3;
+            }
+
+            .nav-cta-movil {
+                display: block !important;
+                padding: 20px 24px 10px 24px;
+                border-bottom: none !important;
+            }
+
+            .nav-cta-movil a {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 14px;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .nav-cta-movil { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -743,7 +1237,7 @@
                 <div class="isotipo-cubo"></div>
                 <div class="logotipo-texto">cetlog</div>
             </a>
-            <nav>
+            <nav id="nav-principal">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="programas.html">Programas</a></li>
@@ -757,9 +1251,13 @@
                             <li><a href="eventos.html">Eventos</a></li>
                         </ul>
                     </li>
+                    <li class="nav-cta-movil"><a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal">Contactar Asesor</a></li>
                 </ul>
             </nav>
-            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
+            <button class="btn-menu-movil" id="btn-menu-movil" onclick="alternarMenuMovil()" aria-label="Abrir menú de navegación">
+                <i class="fa-solid fa-bars" id="icono-menu-movil"></i>
+            </button>
+            <a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal" id="cta-header-desktop" style="text-decoration:none; display:inline-block;">Contactar Asesor</a>
         </div>
     </header>
 
@@ -904,7 +1402,7 @@
         <section class="corporativo-columnas-seccion">
             <div class="contenedor grid-columnas-3">
                 
-                <div class="columna-corporativa-box">
+                <div class="columna-corporativa-box" onclick="abrirModalCetlog('modal-mision')">
                     <div class="cabecera-columna-box">Misión & Visión</div>
                     <div class="cuerpo-columna-box">
                         <div class="item-bloque-mv">
@@ -915,10 +1413,11 @@
                             <h5>Nuestra Visión</h5>
                             <p>Ser reconocidos internacionalmente como el ecosistema de entrenamiento e innovación en cadena de suministro más influyente de la región, impulsando la competitividad corporativa.</p>
                         </div>
+                        <div class="ver-mas-columna">Ver más <i class="fa-solid fa-arrow-right"></i></div>
                     </div>
                 </div>
 
-                <div class="columna-corporativa-box">
+                <div class="columna-corporativa-box" onclick="abrirModalCetlog('modal-hitos')">
                     <div class="cabecera-columna-box">Hitos Importantes</div>
                     <div class="cuerpo-columna-box">
                         <ul class="lista-hitos-timeline">
@@ -935,24 +1434,26 @@
                                 <span>Firma de convenios estratégicos con destacadas universidades públicas y privadas de alcance nacional.</span>
                             </li>
                         </ul>
+                        <div class="ver-mas-columna">Ver toda la trayectoria <i class="fa-solid fa-arrow-right"></i></div>
                     </div>
                 </div>
 
-                <div class="columna-corporativa-box">
+                <div class="columna-corporativa-box" onclick="abrirModalCetlog('modal-prensa')">
                     <div class="cabecera-columna-box">CETLOG Prensa</div>
                     <div class="cuerpo-columna-box">
-                        <a href="#" class="prensa-link-item">
+                        <a class="prensa-link-item" onclick="event.stopPropagation(); abrirModalCetlog('modal-prensa')">
                             <i class="fa-regular fa-newspaper"></i>
                             <span>Diario Gestión: "Educación técnica rompe los paradigmas del reclutamiento logístico tradicional."</span>
                         </a>
-                        <a href="#" class="prensa-link-item">
+                        <a class="prensa-link-item" onclick="event.stopPropagation(); abrirModalCetlog('modal-prensa')">
                             <i class="fa-solid fa-tv"></i>
                             <span>Entrevista Canal N: Innovación y simuladores de Almacén en los premios del 2019.</span>
                         </a>
-                        <a href="#" class="prensa-link-item">
+                        <a class="prensa-link-item" onclick="event.stopPropagation(); abrirModalCetlog('modal-prensa')">
                             <i class="fa-regular fa-newspaper"></i>
                             <span>El Peruano: Convenios de capacitación impulsan competitividad de operarios en puertos.</span>
                         </a>
+                        <div class="ver-mas-columna">Ver sala de prensa <i class="fa-solid fa-arrow-right"></i></div>
                     </div>
                 </div>
 
@@ -1016,6 +1517,256 @@
             <p>&copy; 2026 CETLOG - Centro de Entrenamiento Técnico en Logística. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- ========================================================================
+         VENTANA EMERGENTE: MISIÓN Y VISIÓN
+         ======================================================================== -->
+    <div class="overlay-modal-cetlog" id="modal-mision" onclick="cerrarModalSiEsOverlay(event, 'modal-mision')">
+        <div class="caja-modal-cetlog modal-mision">
+            <button class="cerrar-modal-cetlog" onclick="cerrarModalCetlog('modal-mision')" aria-label="Cerrar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-cetlog-banner">
+                <span class="tag-modal">Nuestros Fundamentos</span>
+                <h2>Misión y Visión</h2>
+                <p>El núcleo estratégico que impulsa la transformación del ecosistema logístico en el Perú.</p>
+            </div>
+            <div class="modal-cetlog-cuerpo">
+
+                <div class="modal-grid-proposito">
+                    <div class="modal-tarjeta-proposito mision">
+                        <div class="icono-proposito"><i class="fa-solid fa-rocket"></i></div>
+                        <h3>Misión</h3>
+                        <p>Somos el centro de entrenamiento que revoluciona la formación logística en el Perú. Transformamos profesionales mediante una metodología lúdica y ambientes simulados a escala para dominar los procesos clave de la cadena de suministro. Reducimos de manera drástica los costos y tiempos de inducción corporativa, entregando talento altamente calificado y listo para operar eficientemente desde el primer día.</p>
+                    </div>
+                    <div class="modal-tarjeta-proposito vision">
+                        <div class="icono-proposito"><i class="fa-solid fa-eye"></i></div>
+                        <h3>Visión</h3>
+                        <p>Consolidarnos como el referente líder y el estándar de excelencia en el entrenamiento logístico del país, revolucionando la formación técnica a través de una propuesta integral única que fusiona lo vivencial, técnico, práctico y lúdico, forjando expertos apasionados que transformen activamente el futuro del sector.</p>
+                    </div>
+                </div>
+
+                <h3 class="subtitulo-modal">Nuestra Esencia</h3>
+                <div class="modal-grid-esencia">
+                    <div class="modal-tarjeta-esencia">
+                        <i class="fa-solid fa-seedling"></i>
+                        <h4>Incubadora</h4>
+                        <p>Cultivamos el talento logístico desde sus bases hasta un perfil plenamente funcional y listo para el campo laboral.</p>
+                    </div>
+                    <div class="modal-tarjeta-esencia">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <h4>Aceleradora</h4>
+                        <p>Optimizamos los plazos tradicionales, reduciendo la curva de aprendizaje y acelerando la empleabilidad.</p>
+                    </div>
+                    <div class="modal-tarjeta-esencia">
+                        <i class="fa-solid fa-cubes"></i>
+                        <h4>Sandbox</h4>
+                        <p>Un entorno controlado y seguro donde el error técnico constructivo es parte activa del crecimiento.</p>
+                    </div>
+                    <div class="modal-tarjeta-esencia">
+                        <i class="fa-solid fa-circle-nodes"></i>
+                        <h4>Conexión</h4>
+                        <p>El puente de alcance 360° que enlaza el talento entrenado con las oportunidades reales del mercado.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================
+         VENTANA EMERGENTE: HITOS IMPORTANTES
+         ======================================================================== -->
+    <div class="overlay-modal-cetlog" id="modal-hitos" onclick="cerrarModalSiEsOverlay(event, 'modal-hitos')">
+        <div class="caja-modal-cetlog modal-hitos">
+            <button class="cerrar-modal-cetlog" onclick="cerrarModalCetlog('modal-hitos')" aria-label="Cerrar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-cetlog-banner">
+                <span class="tag-modal">Nuestra Trayectoria</span>
+                <h2>Logros & Hitos</h2>
+                <p>La evolución del centro de entrenamiento que transformó la manera de enseñar y ejecutar los procesos de la cadena de suministro en el Perú.</p>
+            </div>
+            <div class="modal-cetlog-cuerpo">
+                <ul class="modal-timeline-hitos">
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Año 2024</span>
+                        <h4>Formación Virtual Avanzada</h4>
+                        <p>Incorporación de un ecosistema digital y sistemas de formación virtual interactiva, expandiendo nuestro alcance a nivel nacional.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Junio 2023</span>
+                        <h4>Nueva Unidad de Operaciones</h4>
+                        <p>Apertura estratégica de la Unidad Formativa de Operaciones Logísticas Especializadas dentro de nuestros laboratorios simulados.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Octubre 2019</span>
+                        <h4>Creatividad Empresarial</h4>
+                        <p>Logramos destacar ante el país como finalistas oficiales en los prestigiosos premios de <strong>Creatividad Empresarial 2019</strong>.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Setiembre 2019</span>
+                        <h4>+60 Empresas Aliadas</h4>
+                        <p>Consolidamos una sólida red que supera las 60 organizaciones aliadas para la ejecución de pasantías, prácticas y colocación de talento.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Setiembre 2019</span>
+                        <h4>Cámara de Comercio de Lima</h4>
+                        <p>Nos incorporamos formalmente como miembros activos de la <strong>CCL</strong> para impulsar la competitividad corporativa del sector.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Agosto 2019</span>
+                        <h4>Alianzas Universitarias</h4>
+                        <p>Importantes universidades públicas y privadas del país se unen a nosotros para complementar la formación de sus estudiantes y egresados.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Abril 2019</span>
+                        <h4>Certificación Oficial INDECOPI</h4>
+                        <p><strong>INDECOPI</strong> registra y certifica formalmente la metodología y marca de nuestro centro de entrenamiento logístico.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Diciembre 2018</span>
+                        <h4>Reportaje Logística 360</h4>
+                        <p>La reconocida revista especializada del sector, <strong>Logística 360</strong>, publica un reportaje sobre nuestro impacto en la reducción de costos operativos.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Noviembre 2018</span>
+                        <h4>Entrevista Radio Miraflores</h4>
+                        <p>Nuestros fundadores son invitados a los micrófonos de Radio Miraflores para detallar el valor del entrenamiento inmersivo.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Abril 2018</span>
+                        <h4>Despliegue del Modelo DUAL</h4>
+                        <p>Más de 15 empresas de primer nivel se suman formalmente a nuestra innovadora iniciativa de entrenamiento DUAL.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Noviembre 2017</span>
+                        <h4>Visitas Técnicas Guiadas</h4>
+                        <p>La corporación logística <strong>IGL S.A.</strong> se suma para robustecer nuestros entrenamientos mediante visitas de campo guiadas.</p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Octubre 2017</span>
+                        <h4>Primera Alianza Estratégica</h4>
+                        <p>Firmamos nuestro primer convenio institucional importante con la prestigiosa compañía <strong>UNITRADE S.A.</strong></p>
+                    </li>
+                    <li class="modal-hito-li">
+                        <span class="fecha-modal-hito">Marzo 2017</span>
+                        <h4>El Nacimiento del Sueño</h4>
+                        <p>Iniciamos operaciones movidos por la pasión de transformar la educación logística comercial, contando con únicamente <strong>8 entrenados pioneros</strong>.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================
+         VENTANA EMERGENTE: CETLOG PRENSA
+         ======================================================================== -->
+    <div class="overlay-modal-cetlog" id="modal-prensa" onclick="cerrarModalSiEsOverlay(event, 'modal-prensa')">
+        <div class="caja-modal-cetlog modal-prensa">
+            <button class="cerrar-modal-cetlog" onclick="cerrarModalCetlog('modal-prensa')" aria-label="Cerrar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-cetlog-banner">
+                <span class="tag-modal">CETLOG en los Medios</span>
+                <h2>Sala de Prensa</h2>
+                <p>Revolucionando la formación logística en el Perú. Conoce las opiniones de nuestros fundadores y los reportajes sobre nuestro impacto técnico educativo.</p>
+            </div>
+            <div class="modal-cetlog-cuerpo">
+
+                <div class="modal-bloque-prensa">
+                    <h3>Entrevista Especial en <span>Mercado Logístico</span></h3>
+                    <p>Nuestro Gerente General, <strong>Alfredo Zegarra</strong>, participó en el prestigioso espacio audiovisual de "Mercado Logístico". Durante la sesión, analizó los desafíos críticos del capital humano en la cadena de suministro y cómo la infraestructura técnica a escala reduce la brecha operativa en las empresas.</p>
+                    <p>Descubre cómo nuestro enfoque pedagógico disruptivo está cambiando los estándares de contratación de los perfiles supply chain en el país.</p>
+                </div>
+
+                <div class="modal-bloque-prensa">
+                    <h3>Innovación Educativa en <span>PYME TV</span></h3>
+                    <p>El fundador de CETLOG, <strong>Rafael Aiquipa</strong>, se presentó en señal abierta mediante las pantallas de PYME TV para detallar el origen del Centro de Entrenamiento Técnico y la propuesta de valor patentada ante INDECOPI.</p>
+                    <p>En el reportaje se destaca el laboratorio logístico inmersivo como la primera iniciativa peruana diseñada exclusivamente para simular de forma lúdica y técnica los entornos reales de un centro de distribución o almacén comercial.</p>
+                </div>
+
+                <div class="modal-bloque-prensa">
+                    <h3>Reportajes en <span>Diario Gestión y El Peruano</span></h3>
+                    <p><strong>Diario Gestión</strong> destacó cómo la educación técnica de CETLOG rompe los paradigmas del reclutamiento logístico tradicional, mientras que <strong>El Peruano</strong> resaltó los convenios de capacitación que impulsan la competitividad de operarios en puertos.</p>
+                </div>
+
+                <h3 class="subtitulo-modal">Nos han entrevistado en</h3>
+                <div class="modal-grid-logos-medios">
+                    <div class="modal-caja-logo-medio"><i class="fa-solid fa-microphone-lines"></i>Mercado Logístico</div>
+                    <div class="modal-caja-logo-medio"><i class="fa-solid fa-tv"></i>Pyme TV</div>
+                    <div class="modal-caja-logo-medio"><i class="fa-solid fa-newspaper"></i>Revista Logística</div>
+                    <div class="modal-caja-logo-medio"><i class="fa-solid fa-radio"></i>Radio Empresarial</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirModalCetlog(idModal) {
+            const modal = document.getElementById(idModal);
+            if (!modal) return;
+            modal.classList.add('activo');
+            document.body.classList.add('modal-abierto');
+        }
+
+        function cerrarModalCetlog(idModal) {
+            const modal = document.getElementById(idModal);
+            if (!modal) return;
+            modal.classList.remove('activo');
+            document.body.classList.remove('modal-abierto');
+        }
+
+        function cerrarModalSiEsOverlay(evento, idModal) {
+            // Solo cierra si el clic fue directamente sobre el fondo oscuro, no sobre la tarjeta del modal
+            if (evento.target.id === idModal) {
+                cerrarModalCetlog(idModal);
+            }
+        }
+
+        // Cerrar con la tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.overlay-modal-cetlog.activo').forEach(function(modal) {
+                    modal.classList.remove('activo');
+                });
+                document.body.classList.remove('modal-abierto');
+            }
+        });
+    </script>
+
+
+    <div class="fondo-oscuro-movil" id="fondo-oscuro-movil" onclick="cerrarMenuMovil()"></div>
+
+    <script>
+        function alternarMenuMovil() {
+            const nav = document.getElementById('nav-principal');
+            const icono = document.getElementById('icono-menu-movil');
+            const fondo = document.getElementById('fondo-oscuro-movil');
+            const abierto = nav.classList.toggle('nav-abierto');
+            document.body.classList.toggle('menu-movil-abierto', abierto);
+            fondo.classList.toggle('activo', abierto);
+            icono.classList.toggle('fa-bars', !abierto);
+            icono.classList.toggle('fa-xmark', abierto);
+        }
+
+        function cerrarMenuMovil() {
+            const nav = document.getElementById('nav-principal');
+            const icono = document.getElementById('icono-menu-movil');
+            const fondo = document.getElementById('fondo-oscuro-movil');
+            nav.classList.remove('nav-abierto');
+            document.body.classList.remove('menu-movil-abierto');
+            fondo.classList.remove('activo');
+            icono.classList.add('fa-bars');
+            icono.classList.remove('fa-xmark');
+        }
+
+        // Cierra el menú móvil automáticamente si la ventana vuelve a tamaño de escritorio
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) cerrarMenuMovil();
+        });
+    </script>
 
 </body>
 </html>
