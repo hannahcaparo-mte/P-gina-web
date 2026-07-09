@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos - CETLOG en Acción</title>
-    <meta name="description" content="Descubre los eventos, workshops y capacitaciones de CETLOG con universidades, empresas y el sector logístico peruano.">
+    <title>Misión y Visión - CETLOG</title>
+    <meta name="description" content="Conoce la misión, visión y esencia de CETLOG, el centro de entrenamiento técnico en logística líder del Perú.">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <style>
-        /* --- VARIABLES DE MARCA Y CONFIGURACIÓN BASE --- */
+        /* --- 1. VARIABLES DE MARCA Y CONFIGURACIÓN BASE --- */
         :root {
             --azul-corporativo: #00174D;  
             --naranja-corporativo: #F17900; 
@@ -27,7 +27,7 @@
         }
 
         body {
-            background-color: var(--fondo-ligero);
+            background-color: var(--blanco);
             color: var(--texto-oscuro);
             overflow-x: hidden;
         }
@@ -74,10 +74,10 @@
             width: 80px;
             height: 4px;
             background-color: var(--naranja-corporativo);
-            margin: 0 auto 40px auto;
+            margin: 0 auto 50px auto;
         }
 
-        /* --- HEADER Y MENÚ INTERACTIVO CON DROPDOWN --- */
+        /* --- HEADER Y MENÚ --- */
         header {
             background-color: var(--blanco);
             border-bottom: 2px solid var(--gris-secundario);
@@ -133,7 +133,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 22px;
             align-items: center;
         }
 
@@ -141,20 +141,21 @@
             text-decoration: none;
             color: var(--azul-corporativo);
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             text-transform: uppercase;
             cursor: pointer;
             transition: color 0.2s;
             display: flex;
             align-items: center;
             gap: 5px;
+            white-space: nowrap;
         }
 
         nav ul li a:hover, nav ul li a.active {
             color: var(--naranja-corporativo);
         }
 
-        /* MENÚ DESPLEGABLE (DROPDOWN) */
+        /* MENÚ DESPLEGABLE (DROPDOWN DE CETLOG EN ACCIÓN) */
         .item-dropdown {
             position: relative;
             padding: 10px 0;
@@ -168,7 +169,7 @@
             background-color: var(--blanco);
             border: 1px solid var(--gris-secundario);
             border-top: 3px solid var(--naranja-corporativo);
-            width: 240px;
+            width: 220px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             list-style: none;
             display: flex;
@@ -201,14 +202,48 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        .volver-nosotros {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 22px;
+            transition: color 0.2s;
+        }
+
+        .volver-nosotros:hover {
+            color: var(--naranja-corporativo);
+        }
+
+        .titulo-seccion-central {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--azul-corporativo);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .linea-decorativa {
+            width: 70px;
+            height: 4px;
+            background-color: var(--naranja-corporativo);
+            margin: 0 auto 50px auto;
+        }
+
         /* ==========================================================================
-           1. BANNER CON FOTO DE FONDO Y TEXTO ENCIMA (EVENTOS)
-           ========================================================================= */
-        .banner-eventos {
+           1. BANNER CON FOTO DE FONDO Y TEXTO ENCIMA
+           ========================================================================== */
+        .banner-mision-vision {
             position: relative;
-            height: 450px;
-            background: linear-gradient(rgba(0, 23, 77, 0.85), rgba(0, 12, 41, 0.9)), 
-                        url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200') no-repeat center center;
+            height: 440px;
+            background: linear-gradient(rgba(0, 23, 77, 0.85), rgba(0, 12, 41, 0.95)), 
+                        url('https://images.unsplash.com/photo-1521737711867-e3b90473bd58?q=80&w=1200') no-repeat center center;
             background-size: cover;
             display: flex;
             align-items: center;
@@ -216,11 +251,11 @@
             text-align: center;
         }
 
-        .contenido-banner-eventos {
+        .contenido-banner {
             width: 100%;
         }
 
-        .tag-eventos {
+        .tag-banner {
             display: inline-block;
             background-color: var(--naranja-corporativo);
             padding: 6px 16px;
@@ -232,225 +267,152 @@
             border-radius: 2px;
         }
 
-        .banner-eventos h1 {
-            font-size: 3rem;
+        .banner-mision-vision h1 {
+            font-size: 3.5rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -1px;
             margin-bottom: 15px;
         }
 
-        .banner-eventos p {
-            font-size: 1.15rem;
+        .banner-mision-vision p {
+            font-size: 1.2rem;
             font-weight: 400;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             color: var(--gris-secundario);
             line-height: 1.6;
         }
 
         /* ==========================================================================
-           2. SECCIÓN FILTROS Y GALERÍA DE EVENTOS ORDENADOS
+           2. SECCIÓN PROPÓSITO ESTRATÉGICO (MISIÓN Y VISIÓN)
            ========================================================================== */
-        .seccion-galeria-eventos {
+        .seccion-proposito {
+            padding: 80px 0;
+            background-color: var(--blanco);
+        }
+
+        .grid-proposito {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .tarjeta-proposito {
+            background-color: var(--fondo-ligero);
+            padding: 50px 40px;
+            border-radius: 8px;
+            border: 1px solid var(--gris-secundario);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tarjeta-proposito:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 23, 77, 0.05);
+        }
+
+        .tarjeta-proposito.mision {
+            border-top: 5px solid var(--naranja-corporativo);
+        }
+
+        .tarjeta-proposito.vision {
+            border-top: 5px solid var(--azul-corporativo);
+        }
+
+        .icono-proposito {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .mision .icono-proposito {
+            background-color: rgba(241, 121, 0, 0.1);
+            color: var(--naranja-corporativo);
+        }
+
+        .vision .icono-proposito {
+            background-color: rgba(0, 23, 77, 0.1);
+            color: var(--azul-corporativo);
+        }
+
+        .tarjeta-proposito h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--azul-corporativo);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .tarjeta-proposito p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #4A5568;
+        }
+
+        /* ==========================================================================
+           3. SECCIÓN NUESTRA ESENCIA (PILARES)
+           ========================================================================== */
+        .seccion-esencia {
             padding: 80px 0;
         }
 
-        /* Controles de Filtros Estilizados */
-        .contenedor-filtros {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-
-        .btn-filtro {
-            background-color: var(--blanco);
-            color: var(--azul-corporativo);
-            border: 1px solid var(--gris-secundario);
-            padding: 12px 24px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-
-        .btn-filtro:hover, .btn-filtro.activo {
-            background-color: var(--azul-corporativo);
-            color: var(--blanco);
-            border-color: var(--azul-corporativo);
-            box-shadow: 0 4px 15px rgba(0, 23, 77, 0.15);
-        }
-
-        /* Grid de Tarjetas Modernas */
-        .grid-eventos-logistica {
+        .grid-esencia {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
 
-        .tarjeta-evento {
+        .tarjeta-esencia {
             background-color: var(--blanco);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid var(--gris-secundario);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
+            border-radius: 6px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
 
-        .tarjeta-evento:hover {
+        .tarjeta-esencia:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 25px rgba(0, 23, 77, 0.06);
+            border-color: var(--naranja-corporativo);
         }
 
-        /* Caja de Imagen/Video de la Tarjeta */
-        .multimedia-evento-box {
-            position: relative;
-            height: 230px;
-            background-color: #2d3748;
-            overflow: hidden;
+        .icono-esencia {
+            font-size: 2.2rem;
+            color: var(--azul-corporativo);
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: color 0.3s;
         }
 
-        .multimedia-evento-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Etiquetas e Indicadores Flotantes */
-        .badge-categoria-evento {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: var(--azul-corporativo);
-            color: var(--blanco);
-            padding: 5px 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
-            z-index: 2;
-        }
-
-        .badge-fecha-evento {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background-color: var(--naranja-corporativo);
-            color: var(--blanco);
-            padding: 5px 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            border-radius: 4px;
-            z-index: 2;
-        }
-
-        /* Capa de simulación de reproducción de video */
-        .play-video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--blanco);
-            font-size: 3rem;
-            transition: background 0.2s, color 0.2s;
-            cursor: pointer;
-        }
-
-        .play-video-overlay:hover {
-            background: rgba(0,0,0,0.35);
+        .tarjeta-esencia:hover .icono-esencia {
             color: var(--naranja-corporativo);
         }
 
-        /* Información del Evento */
-        .info-evento-box {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .info-evento-box h3 {
+        .tarjeta-esencia h3 {
             font-size: 1.15rem;
             font-weight: 800;
             color: var(--azul-corporativo);
-            line-height: 1.4;
+            text-transform: uppercase;
             margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
 
-        .info-evento-box p {
+        .tarjeta-esencia p {
             font-size: 0.88rem;
-            color: #4A5568;
             line-height: 1.6;
-            margin-bottom: 20px;
+            color: #4A5568;
         }
 
-        /* Footer de la tarjeta con Institución/Lugar */
-        .lugar-evento-footer {
-            margin-top: auto;
-            padding-top: 15px;
-            border-top: 1px solid var(--gris-secundario);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: #718096;
-            font-weight: 600;
-        }
+        /* --- FOOTER COMÚN --- */
 
-        footer a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: var(--naranja-corporativo);
-        }
-
-        .lugar-evento-footer i {
-            color: var(--naranja-corporativo);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: #0b1326;
-            color: rgba(255,255,255,0.5);
-            padding: 30px 0;
-            text-align: center;
-            font-size: 0.85rem;
-            border-top: 3px solid var(--naranja-corporativo);
-            margin-top: 40px;
-        }
-
-        /* ==========================================================================
-           RESPONSIVE DESIGN (MÓVIL Y TABLETAS)
-           ========================================================================== */
-        @media (max-width: 992px) {
-            .grid-eventos-logistica { grid-template-columns: repeat(2, 1fr); gap: 25px; }
-            .banner-eventos h1 { font-size: 2.5rem; }
-        }
-
-        @media (max-width: 650px) {
-            .grid-eventos-logistica { grid-template-columns: 1fr; }
-            .banner-eventos h1 { font-size: 2rem; }
-            .btn-filtro { width: 100%; text-align: center; }
-        }
-
-        /* ==========================================================================
            NAVEGACIÓN RESPONSIVE (MENÚ HAMBURGUESA PARA TABLET Y CELULAR)
            ========================================================================== */
         .btn-menu-movil {
@@ -594,6 +556,7 @@
             .logo-header { height: 40px; }
         }
     </style>
+    </style>
 </head>
 <body>
 
@@ -607,13 +570,13 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="programas.html">Programas</a></li>
                     <li><a href="metodologia.html">Metodología</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="nosotros.html" class="active">Nosotros</a></li>
                     <li class="item-dropdown">
-                        <a href="visitas-tecnicas.html" class="active">CETLOG en Acción <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i></a>
+                        <a href="visitas-tecnicas.html">CETLOG en Acción <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i></a>
                         <ul class="menu-desplegable">
                             <li><a href="conexiones-laborales.html">Conexiones Laborales</a></li>
                             <li><a href="visitas-tecnicas.html">Visitas Técnicas</a></li>
-                            <li><a href="eventos.html" class="active">Eventos</a></li>
+                            <li><a href="eventos.html">Eventos</a></li>
                         </ul>
                     </li>
                     <li class="nav-cta-movil"><a href="https://wa.me/51908883693" target="_blank" rel="noopener" class="btn-principal">Contactar Asesor</a></li>
@@ -627,112 +590,72 @@
     </header>
 
     <main>
-        
-        <section class="banner-eventos">
-            <div class="contenedor contenido-banner-eventos">
-                <span class="tag-eventos">Comunidad y Desarrollo Sectorial</span>
-                <h1>Nuestros Eventos y Workshops</h1>
-                <p>Potenciamos el ecosistema logístico mediante ponencias académicas, talleres de simulación real y capacitación de alto impacto corporativo.</p>
+
+        <section class="banner-mision-vision">
+            <div class="contenedor">
+                <a href="nosotros.html" class="volver-nosotros"><i class="fa-solid fa-arrow-left"></i> Volver a Nosotros</a>
+                <span class="tag-banner">Nuestros Fundamentos</span>
+                <h1>Misión y Visión</h1>
+                <p>El núcleo estratégico que impulsa la transformación del ecosistema logístico en el Perú.</p>
             </div>
         </section>
 
-        <section class="seccion-galeria-eventos">
-            <div class="contenedor">
+        <section class="seccion-proposito">
+            <div class="contenedor grid-proposito">
                 
-                <h2 class="titulo-seccion-texto">Registro e Impacto en el Sector</h2>
-                <div class="subtitulo-seccion-linea"></div>
-
-                <div class="contenedor-filtros">
-                    <button class="btn-filtro activo" onclick="filtrarEventos('todos')">Todos los Eventos</button>
-                    <button class="btn-filtro" onclick="filtrarEventos('universidad')">Eventos Universitarios</button>
-                    <button class="btn-filtro" onclick="filtrarEventos('workshop')">Workshops y Talleres</button>
-                    <button class="btn-filtro" onclick="filtrarEventos('empresa')">Entrenamientos a Empresas</button>
+                <div class="tarjeta-proposito mision">
+                    <div class="icono-proposito">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h2>Misión</h2>
+                    <p>
+                        Somos el centro de entrenamiento que revoluciona la formación logística en el Perú. Transformamos profesionales mediante una metodología lúdica y ambientes simulados a escala para dominar los procesos clave de la cadena de suministro. Reducimos de manera drástica los costos y tiempos de inducción corporativa, entregando talento altamente calificado y listo para operar eficientemente desde el primer día, impulsando así el valor real del ecosistema logístico nacional.
+                    </p>
                 </div>
 
-                <div class="grid-eventos-logistica">
+                <div class="tarjeta-proposito vision">
+                    <div class="icono-proposito">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h2>Visión</h2>
+                    <p>
+                        Consolidarnos como el referente líder y el estándar de excelencia en el entrenamiento logístico del país, revolucionando la formación técnica a través de una propuesta integral única que fusiona lo vivencial, técnico, práctico y lúdico. No solo buscamos capacitar profesionales; nos enfocamos en forjar expertos apasionados que dominen las operaciones logísticas globales, transformando activamente el futuro del sector.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="seccion-esencia">
+            <div class="contenedor">
+                
+                <h2 class="titulo-seccion-central">Nuestra Esencia</h2>
+                <div class="linea-decorativa"></div>
+
+                <div class="grid-esencia">
                     
-                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-evento" data-categoria="universidad">
-                        <div class="multimedia-evento-box">
-                            <span class="badge-categoria-evento">Universidad</span>
-                            <span class="badge-fecha-evento">22 Jun 2026</span>
-                            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=500" alt="Conferencia Universitaria">
-                            <div class="play-video-overlay">
-                                <i class="fa-regular fa-circle-play"></i>
-                            </div>
-                        </div>
-                        <div class="info-evento-box">
-                            <h3>Magistral: El Futuro de la Supply Chain 4.0</h3>
-                            <p>Compartimos junto a más de 200 estudiantes universitarios las nuevas macrotendencias en IA, automatización de almacenes y resiliencia en comercio internacional.</p>
-                            <div class="lugar-evento-footer">
-                                <i class="fa-solid fa-university"></i> Auditorio Universidad Nacional
-                            </div>
-                        </div>
+                    <div class="tarjeta-esencia">
+                        <div class="icono-esencia"><i class="fa-solid fa-seedling"></i></div>
+                        <h3>Incubadora</h3>
+                        <p>Cultivamos y estructuramos el talento logístico desde sus bases estructurales hasta transformarlo en un perfil plenamente funcional, ágil y listo para el campo laboral.</p>
                     </div>
 
-                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-evento" data-categoria="workshop">
-                        <div class="multimedia-evento-box">
-                            <span class="badge-categoria-evento">Workshop</span>
-                            <span class="badge-fecha-evento">08 Jun 2026</span>
-                            <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=500" alt="Workshop Técnico">
-                        </div>
-                        <div class="info-evento-box">
-                            <h3>Taller Práctico: Liquidación y Aforo Aduanero</h3>
-                            <p>Un espacio intensivo donde los asistentes resolvieron casos reales de valoración aduanera, clasificación arancelaria y gestión ante contingencias en aduanas.</p>
-                            <div class="lugar-evento-footer">
-                                <i class="fa-solid fa-chalkboard-user"></i> Laboratorio de Simulación CETLOG
-                            </div>
-                        </div>
+                    <div class="tarjeta-esencia">
+                        <div class="icono-esencia"><i class="fa-solid fa-gauge-high"></i></div>
+                        <h3>Aceleradora</h3>
+                        <p>Optimizamos drásticamente los plazos tradicionales, reduciendo la curva de aprendizaje operativo y acelerando la empleabilidad competitiva de nuestros entrenados.</p>
                     </div>
 
-                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-evento" data-categoria="empresa">
-                        <div class="multimedia-evento-box">
-                            <span class="badge-categoria-evento">Entrenamiento a Empresas</span>
-                            <span class="badge-fecha-evento">19 May 2026</span>
-                            <img src="https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?q=80&w=500" alt="Capacitación Corporativa">
-                            <div class="play-video-overlay">
-                                <i class="fa-regular fa-circle-play"></i>
-                            </div>
-                        </div>
-                        <div class="info-evento-box">
-                            <h3>In-House: Optimización de Almacenes y WMS</h3>
-                            <p>Capacitación técnica exclusiva diseñada para el equipo de operaciones de un operador logístico líder, enfocada en metodologías Lean y mejora del Slotting.</p>
-                            <div class="lugar-evento-footer">
-                                <i class="fa-solid fa-building"></i> Sede Corporativa Lurín
-                            </div>
-                        </div>
+                    <div class="tarjeta-esencia">
+                        <div class="icono-esencia"><i class="fa-solid fa-cubes"></i></div>
+                        <h3>Sandbox</h3>
+                        <p>Proporcionamos un entorno controlado y seguro para aprender mediante la experiencia directa, donde el error técnico constructivo es parte activa del crecimiento.</p>
                     </div>
 
-                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-evento" data-categoria="universidad">
-                        <div class="multimedia-evento-box">
-                            <span class="badge-categoria-evento">Universidad</span>
-                            <span class="badge-fecha-evento">05 Abr 2026</span>
-                            <img src="https://images.unsplash.com/photo-1565034946487-077786996e27?q=80&w=500" alt="Feria Universitaria">
-                        </div>
-                        <div class="info-evento-box">
-                            <h3>Encuentro Tecnológico de Comercio Exterior</h3>
-                            <p>CETLOG participó activamente orientando a futuros profesionales sobre la importancia de la alta especialización técnica en aduanas y transporte.</p>
-                            <div class="lugar-evento-footer">
-                                <i class="fa-solid fa-university"></i> Universidad Tecnológica Central
-                            </div>
-                        </div>
-                    </div>
-
-                    <div onclick="window.location.href='visita-detalle.html'" class="tarjeta-evento" data-categoria="workshop">
-                        <div class="multimedia-evento-box">
-                            <span class="badge-categoria-evento">Workshop</span>
-                            <span class="badge-fecha-evento">23 Mar 2026</span>
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=500" alt="Mesa de Trabajo">
-                            <div class="play-video-overlay">
-                                <i class="fa-regular fa-circle-play"></i>
-                            </div>
-                        </div>
-                        <div class="info-evento-box">
-                            <h3>Mesa Técnica: Desafíos de la Última Milla y E-commerce</h3>
-                            <p>Debate dinámico y análisis de indicadores clave (KPIs) sobre el control de mermas, ruteo eficiente y trazabilidad en logística inversa de distribución.</p>
-                            <div class="lugar-evento-footer">
-                                <i class="fa-solid fa-chalkboard-user"></i> Hub Logístico Empresarial
-                            </div>
-                        </div>
+                    <div class="tarjeta-esencia">
+                        <div class="icono-esencia"><i class="fa-solid fa-circle-nodes"></i></div>
+                        <h3>Conexión</h3>
+                        <p>Actuamos como el puente definitivo de vinculación de alcance 360° (humano, profesional, metodológico y tecnológico) que enlaza el talento entrenado con las oportunidades reales.</p>
                     </div>
 
                 </div>
@@ -747,38 +670,12 @@
             <p style="margin-bottom: 12px;">
                 <a href="index.html">Inicio</a> &nbsp;·&nbsp;
                 <a href="programas.html">Programas</a> &nbsp;·&nbsp;
-                <a href="visitas-tecnicas.html">Visitas Técnicas</a> &nbsp;·&nbsp;
-                <a href="eventos.html">Eventos</a> &nbsp;·&nbsp;
+                <a href="nosotros.html">Nosotros</a> &nbsp;·&nbsp;
                 <a href="mailto:informes@cetlog.com.pe">informes@cetlog.com.pe</a>
             </p>
             <p>&copy; 2026 CETLOG - Centro de Entrenamiento Técnico en Logística. Todos los derechos reservados.</p>
         </div>
     </footer>
-
-    <script>
-        function filtrarEventos(categoria) {
-            // Cambiar clase activa en los botones de filtro
-            const botones = document.querySelectorAll('.btn-filtro');
-            botones.forEach(btn => btn.classList.remove('activo'));
-            event.target.classList.add('activo');
-
-            // Filtrar las tarjetas correspondientes
-            const tarjetas = document.querySelectorAll('.tarjeta-evento');
-            
-            tarjetas.forEach(tarjeta => {
-                if (categoria === 'todos') {
-                    tarjeta.style.display = 'flex';
-                } else {
-                    if (tarjeta.getAttribute('data-categoria') === categoria) {
-                        tarjeta.style.display = 'flex';
-                    } else {
-                        tarjeta.style.display = 'none';
-                    }
-                }
-            });
-        }
-    </script>
-
 
     <div class="fondo-oscuro-movil" id="fondo-oscuro-movil" onclick="cerrarMenuMovil()"></div>
 
